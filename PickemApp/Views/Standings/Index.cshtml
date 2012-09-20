@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Standings";
+}
+
+<h2>Overall Standings</h2>
+
+<table class="standings">
+@foreach (var pp in ViewBag.PlayerPicks)
+{
+    <tr>
+        <th scope="row">@pp.Player.Name</th>
+        <td>@pp.CorrectPicks</td>
+    </tr>
+}
+</table>

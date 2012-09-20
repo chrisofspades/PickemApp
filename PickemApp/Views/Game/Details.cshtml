@@ -1,0 +1,113 @@
+﻿@model PickemApp.Models.Game
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Game</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Eid)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Eid)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Gsis)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Gsis)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Week)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Week)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Year)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Year)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Day)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Day)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Time)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Time)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Quarter)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Quarter)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TimeRemaining)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TimeRemaining)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.HomeTeam)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.HomeTeam)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.HomeTeamScore)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.HomeTeamScore)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.VisitorTeam)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.VisitorTeam)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.VisitorTeamScore)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.VisitorTeamScore)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.GameType)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.GameType)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.WinningTeam)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.WinningTeam)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

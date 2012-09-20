@@ -1,0 +1,111 @@
+﻿@model IEnumerable<PickemApp.Models.Game>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Eid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gsis)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Week)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Year)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Day)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Time)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quarter)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TimeRemaining)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HomeTeam)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HomeTeamScore)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VisitorTeam)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VisitorTeamScore)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GameType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WinningTeam)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Eid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Gsis)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Week)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Year)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Day)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Time)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Quarter)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TimeRemaining)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HomeTeam)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HomeTeamScore)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VisitorTeam)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VisitorTeamScore)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GameType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WinningTeam)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

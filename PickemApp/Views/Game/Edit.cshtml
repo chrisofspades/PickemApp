@@ -1,0 +1,141 @@
+﻿@model PickemApp.Models.Game
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Game</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Eid)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Eid)
+            @Html.ValidationMessageFor(model => model.Eid)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Gsis)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Gsis)
+            @Html.ValidationMessageFor(model => model.Gsis)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Week)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Week)
+            @Html.ValidationMessageFor(model => model.Week)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Year)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Year)
+            @Html.ValidationMessageFor(model => model.Year)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Day)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Day)
+            @Html.ValidationMessageFor(model => model.Day)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Time)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Time)
+            @Html.ValidationMessageFor(model => model.Time)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Quarter)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Quarter)
+            @Html.ValidationMessageFor(model => model.Quarter)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TimeRemaining)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TimeRemaining)
+            @Html.ValidationMessageFor(model => model.TimeRemaining)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.HomeTeam)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.HomeTeam)
+            @Html.ValidationMessageFor(model => model.HomeTeam)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.HomeTeamScore)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.HomeTeamScore)
+            @Html.ValidationMessageFor(model => model.HomeTeamScore)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.VisitorTeam)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.VisitorTeam)
+            @Html.ValidationMessageFor(model => model.VisitorTeam)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.VisitorTeamScore)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.VisitorTeamScore)
+            @Html.ValidationMessageFor(model => model.VisitorTeamScore)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.GameType)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.GameType)
+            @Html.ValidationMessageFor(model => model.GameType)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.WinningTeam)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.WinningTeam)
+            @Html.ValidationMessageFor(model => model.WinningTeam)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

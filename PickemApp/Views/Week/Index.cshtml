@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = string.Format("Week {0} Results", ViewBag.Week);
+}
+
+<h2>Week @ViewBag.Week</h2>
+
+<table class="standings">
+@foreach (var pp in ViewBag.PlayerPicks)
+{
+    <tr>
+        <th scope="row">@pp.Player.Name</th>
+        <td>@pp.CorrectPicks</td>
+    </tr>
+}
+</table>

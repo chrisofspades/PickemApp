@@ -1,0 +1,50 @@
+﻿@model PickemApp.Models.Pick
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Pick</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Player.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Player.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Game.Eid)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Game.Eid)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TeamPicked)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TeamPicked)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TotalPoints)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TotalPoints)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.PickResult)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PickResult)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

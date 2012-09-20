@@ -1,0 +1,53 @@
+﻿@model PickemApp.Models.Pick
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Pick</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Player.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Player.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Game.Eid)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Game.Eid)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TeamPicked)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TeamPicked)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TotalPoints)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TotalPoints)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.PickResult)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PickResult)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

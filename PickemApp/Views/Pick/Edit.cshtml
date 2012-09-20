@@ -1,0 +1,69 @@
+﻿@model PickemApp.Models.Pick
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Pick</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PlayerId, "Player")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("PlayerId", String.Empty)
+            @Html.ValidationMessageFor(model => model.PlayerId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.GameId, "Game")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("GameId", String.Empty)
+            @Html.ValidationMessageFor(model => model.GameId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TeamPicked)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TeamPicked)
+            @Html.ValidationMessageFor(model => model.TeamPicked)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TotalPoints)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TotalPoints)
+            @Html.ValidationMessageFor(model => model.TotalPoints)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PickResult)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PickResult)
+            @Html.ValidationMessageFor(model => model.PickResult)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
