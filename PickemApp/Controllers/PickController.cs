@@ -41,7 +41,7 @@ namespace PickemApp.Controllers
         public ActionResult Create()
         {
             ViewBag.PlayerId = new SelectList(db.Players, "Id", "Name");
-            ViewBag.GameId = new SelectList(db.Games, "Id", "Eid");
+            ViewBag.GameId = new SelectList(db.Games.Select(t => new { Id = t.Id, Desc = "Week " + t.Week + ", " + t.VisitorTeam + " @ " + t.HomeTeam }), "Id", "Desc");
             return View();
         }
 
