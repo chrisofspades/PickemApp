@@ -1,0 +1,24 @@
+﻿@model PickemApp.Models.BulkPickEditor
+
+@{
+    ViewBag.Title = "Pick Games";
+}
+
+<h2>Pick Games</h2>
+
+<h3>@Html.DisplayFor(model => model.Player.Name), @Html.DisplayFor(model => model.Year) Week @Html.DisplayFor(model => model.Week)</h3>
+
+@using (Html.BeginForm("SubmitPicks", "BulkPickEditor")) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Player and Week</legend>
+
+        <div class="clear-fix">
+            @Html.EditorFor(model => Model.Picks)
+        </div>
+        <p>
+            <input type="submit" value="Submit Picks" />
+        </p>
+    </fieldset>
+}

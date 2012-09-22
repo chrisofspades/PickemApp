@@ -1,0 +1,21 @@
+﻿@model PickemApp.Models.Pick
+
+            <fieldset class="pick float-left">
+                <legend>Pick</legend>
+                <label>
+                    @Html.RadioButtonFor(model => Model.TeamPicked, Model.Game.VisitorTeam)
+                    @Model.Game.VisitorTeam
+                </label>
+                <label>
+                    @Html.RadioButtonFor(model => Model.TeamPicked, Model.Game.HomeTeam)
+                    @Model.Game.HomeTeam
+                </label>
+
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.PlayerId)
+                @Html.HiddenFor(model => model.PickResult)
+                @Html.HiddenFor(model => model.GameId)
+
+                @Html.LabelFor(model => Model.TotalPoints)
+                @Html.EditorFor(model => Model.TotalPoints)
+            </fieldset>

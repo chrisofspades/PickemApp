@@ -163,6 +163,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BulkPickEditorController.cs" />
     <Compile Include="Controllers\StandingsController.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -187,11 +188,12 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\BulkPickEditor.cs" />
     <Compile Include="Models\Game.cs" />
     <Compile Include="Models\Pick.cs" />
     <Compile Include="Models\PickemDBContext.cs" />
     <Compile Include="Models\Player.cs" />
-    <Compile Include="Models\Week.cs" />
+    <Compile Include="Models\WeeklyPlayerPicks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -249,6 +251,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Week1.xml" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
@@ -377,6 +380,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Sync.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\BulkPickEditor\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\BulkPickEditor\PickGames.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\EditorTemplates\Pick.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

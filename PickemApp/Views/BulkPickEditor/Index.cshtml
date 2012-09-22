@@ -1,0 +1,43 @@
+﻿@model PickemApp.Models.BulkPickEditor
+
+@{
+    ViewBag.Title = "Bulk Pick Editor";
+}
+
+<h2>Bulk Pick Editor</h2>
+
+@using (Html.BeginForm("PickGames", "BulkPickEditor")) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Player and Week</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PlayerId, "Player")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("PlayerId", String.Empty)
+            @Html.ValidationMessageFor(model => model.PlayerId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Year, "Year")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("Year", String.Empty)
+            @Html.ValidationMessageFor(model => model.Year)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Week, "Week")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("Week", String.Empty)
+            @Html.ValidationMessageFor(model => model.Week)
+        </div>
+
+        <p>
+            <input type="submit" value="Edit Picks" />
+        </p>
+    </fieldset>
+}

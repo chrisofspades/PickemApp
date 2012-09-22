@@ -414,6 +414,12 @@ fieldset {
             padding-bottom: 5px;
         }
 
+    fieldset.pick {
+        margin: 10px;
+        padding: 3px;
+        border: 1px solid #ccc;
+    }
+    
 label {
     display: block;
     font-size: 1.2em;
@@ -443,7 +449,7 @@ textarea {
         border: 1px solid #7ac0da;
     }
 
-    input[type="checkbox"] {
+    input[type="checkbox"], input[type="radio"] {
         background: transparent;
         border: inherit;
         width: auto;

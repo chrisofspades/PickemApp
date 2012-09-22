@@ -17,8 +17,9 @@ namespace PickemApp.Controllers
 
         public ActionResult Index()
         {
-            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
-            
+            //doing the sync here, which is ugly, but will have to suffice until I found a way to do it in the background.
+            NflSync.UpdateGames("http://www.nfl.com/liveupdate/scorestrip/ss.xml");
+
             //get all of the weeks
             var weeks = (from g in db.Games
                          select new WeeklyPlayerPicks
