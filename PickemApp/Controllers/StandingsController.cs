@@ -20,7 +20,7 @@ namespace PickemApp.Controllers
             var playerPicks = (from g in db.Games
                                join p in db.Picks on g.Id equals p.GameId into j1
                                from j2 in j1.DefaultIfEmpty()
-                               group j2 by new { g.Week, g.Year, j2.PlayerId } into grp
+                               group j2 by new { j2.PlayerId } into grp
                                orderby grp.Count(t => t.PickResult == "W") descending
                                select new
                                {

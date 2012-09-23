@@ -5,7 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using PickemApp;
+using PickemApp.SyncUtils;
 using PickemApp.Models;
 
 
@@ -66,17 +66,6 @@ namespace PickemApp.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
-            return View();
-        }
-
-        public ActionResult Sync(string x = "http://www.nfl.com/liveupdate/scorestrip/ss.xml")
-        {
-            if (string.IsNullOrEmpty(x))
-            {
-                return HttpNotFound();
-            }
-
-            NflSync.UpdateGames(x);
             return View();
         }
 
