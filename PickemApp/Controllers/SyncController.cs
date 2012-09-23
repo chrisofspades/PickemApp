@@ -25,6 +25,8 @@ namespace PickemApp.Controllers
                 return HttpNotFound();
             }
 
+            ViewBag.Message = "Games and pick results updated.";
+
             NflSync.UpdateGames(x);
             return View("Index");
         }
