@@ -65,8 +65,14 @@ namespace PickemApp.SyncUtils
                 var week = xml.Descendants("gms").FirstOrDefault();
                 if (week != null)
                 {
+                    //Update pick results
                     UpdatePicks(Convert.ToInt32(week.Attribute("w").Value), Convert.ToInt32(week.Attribute("y").Value));
+
+                    //Save XML to file if all games are completed
+                    xml.Save(HttpContext.Current.Server.MapPath(VirtualPathUtility.ToAbsolute(string.Format("~/Content/datafiles/{0}Week{1}.xml",  week.Attribute("y").Value, week.Attribute("w").Value))));
                 }
+
+                
             }
 
         }

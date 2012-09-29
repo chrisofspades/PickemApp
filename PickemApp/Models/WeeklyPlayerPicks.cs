@@ -12,5 +12,6 @@ namespace PickemApp.Models
         public int Year { get; set; }
         public Player Player { get; set; } 
         public int CorrectPicks { get; set; }
+        public List<Pick> Picks { get; set; }
     }
 }

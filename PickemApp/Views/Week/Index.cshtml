@@ -1,15 +1,32 @@
-﻿@{
+﻿@model IEnumerable<PickemApp.Models.WeeklyPlayerPicks>
+
+@{
     ViewBag.Title = string.Format("Week {0} Results", ViewBag.Week);
 }
 
 <h2>Week @ViewBag.Week</h2>
 
 <table class="standings">
-@foreach (var pp in ViewBag.PlayerPicks)
+@foreach (var pp in Model)
 {
     <tr>
         <th scope="row">@pp.Player.Name</th>
-        <td>@pp.CorrectPicks</td>
+        <td class="number">@pp.CorrectPicks</td>
     </tr>
 }
 </table>
+
+@foreach (var pp in Model.OrderBy(o => o.Player.Name))
+{
+<div class="player float-left">
+    <h3>@pp.Player.Name (@pp.CorrectPicks)</h3>
+    <ul>
+    @foreach (var pick in pp.Picks)
+    {
+        <li class="@(pick.PickResult == "W" ? "correct" : "")">
+            <span class="team@(pick.TeamPicked == pick.Game.VisitorTeam ? " picked" : "")">@pick.Game.VisitorTeam</span> @@ <span class="team@(pick.TeamPicked == pick.Game.HomeTeam ? " picked" : "")">@pick.Game.HomeTeam</span>
+        </li>
+    }
+    </ul>
+</div>
+}

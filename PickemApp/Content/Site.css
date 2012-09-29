@@ -61,7 +61,7 @@ mark {
 h1, h2, h3,
 h4, h5, h6 {
     color: #000;
-    margin-bottom: 0;
+    margin-bottom: 15px;
     padding-bottom: 0;
 }
 
@@ -108,6 +108,7 @@ h5, h6 {
         background: url("../Images/accent.png") no-repeat;
         padding-left: 10px;
         padding-top: 30px;
+        
     }
 
     .featured + .main-content {
@@ -596,16 +597,49 @@ td {
     border: 0 none;
 }
 
+td.number {
+    text-align: right;
+}
+
 tr.pager td {
     padding: 0 0.25em 0 0;
 }
 
 
-table.standings 
-{
-    width: 30em;
-    margin: 0 auto;
+table.standings {
+    
 }
+
+    table.standings th[scope=row] {
+        padding-right: 50px;
+    }
+
+.correct {
+    font-style: italic;
+}
+
+.picked {
+    font-weight: bold;
+}
+
+.player {
+    margin: 0 75px 15px 0;
+}
+
+    .player ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+        .player ul .correct {
+            background-color: yellow;
+        }
+        
+        .player ul .team 
+        {
+            display: inline-block;
+            width: 30px;
+        }
 
 /********************
 *   Mobile Styles   *
