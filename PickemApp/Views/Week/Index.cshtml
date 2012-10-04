@@ -24,7 +24,12 @@
     @foreach (var pick in pp.Picks)
     {
         <li class="@(pick.PickResult == "W" ? "correct" : "")">
-            <span class="team@(pick.TeamPicked == pick.Game.VisitorTeam ? " picked" : "")">@pick.Game.VisitorTeam</span> @@ <span class="team@(pick.TeamPicked == pick.Game.HomeTeam ? " picked" : "")">@pick.Game.HomeTeam</span>
+            <span class="team@(pick.TeamPicked == pick.Game.VisitorTeam ? " picked" : "")">@pick.Game.VisitorTeam</span> @@ 
+            <span class="team@(pick.TeamPicked == pick.Game.HomeTeam ? " picked" : "")">@pick.Game.HomeTeam</span>
+            @if (pick.TotalPoints > 0)
+            {
+                <span class="total-points">(@pick.TotalPoints)</span>
+            }
         </li>
     }
     </ul>
