@@ -7,7 +7,7 @@
 <h2>Week @ViewBag.Week</h2>
 
 <table class="standings">
-@foreach (var pp in Model)
+@foreach (var pp in Model.OrderByDescending(o => o.CorrectPicks).ThenBy( o=> o.TieBreaker))
 {
     <tr>
         <th scope="row">@pp.Player.Name</th>
