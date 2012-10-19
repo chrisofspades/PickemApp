@@ -7,11 +7,43 @@
 <h2>Week @ViewBag.Week</h2>
 
 <table class="standings">
-@foreach (var pp in Model.OrderByDescending(o => o.CorrectPicks).ThenBy( o=> o.TieBreaker))
+    <tr class="games">
+        <td colspan="2"></td>
+    @foreach (PickemApp.Models.Game g in ViewBag.Games)
+    {
+        <td>
+            <table>
+                <tr class="@(g.WinningTeam == g.VisitorTeam ? "correct" : "")">
+                    <td>@g.VisitorTeam</td>
+                    <td>@g.VisitorTeamScore</td>
+                    
+                </tr>
+                <tr class="@(g.WinningTeam == g.HomeTeam ? "correct" : "")">
+                    <td>@g.HomeTeam</td>
+                    <td>@g.HomeTeamScore</td>
+                </tr>
+                <tr>
+                    <td class="status" colspan="2">@g.Status</td>
+                </tr>
+            </table>
+        </td>
+    }
+    </tr>
+@foreach (var pp in Model.OrderByDescending(o => o.CorrectPicks).ThenBy(o => o.TieBreaker))
 {
-    <tr>
+    <tr class="player">
         <th scope="row">@pp.Player.Name</th>
         <td class="number">@pp.CorrectPicks</td>
+        @foreach (var pick in pp.Picks.OrderBy(o => o.Game.Gsis))
+        {
+            <td class="@(pick.PickResult == "W" ? "correct" : "")">
+                @pick.TeamPicked       
+                @if (pick.TotalPoints > 0)
+                {
+                    <span class="total-points">(@pick.TotalPoints)</span>
+                }
+            </td>
+        }
     </tr>
 }
 </table>

@@ -202,7 +202,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\datafiles\2012Week06Picks.html" />
+    <Content Include="Content\datafiles\2012Week6Picks.html" />
+    <Content Include="Content\datafiles\2012Week7Picks.html" />
     <Content Include="Content\datafiles\Week1Picks.html" />
     <Content Include="Content\datafiles\Week2Picks.html" />
     <Content Include="Content\datafiles\Week3Picks.html" />

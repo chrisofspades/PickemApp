@@ -98,6 +98,8 @@ h5, h6 {
     max-width: 960px;
 }
 
+#week .content-wrapper { max-width: 1100px; }
+
 #body {
     background-color: #efeeef;
     clear: both;
@@ -585,7 +587,7 @@ th {
     }
 
 th[scope=row] {
-    font-size: 1em;
+    font-size: inherit;
 }
 
     th[scope=row] a {
@@ -593,7 +595,7 @@ th[scope=row] {
     }
 
 td {
-    padding: 0.25em 2em 0.25em 0em;
+    padding: 0.25em 1.75em 0.25em 0em;
     border: 0 none;
 }
 
@@ -607,17 +609,33 @@ tr.pager td {
 
 
 table.standings {
-    
-}
 
-    table.standings th[scope=row] {
-        padding-right: 50px;
+}
+    table.standings td  {
+        white-space: nowrap;
+        text-align: center;
     }
-
-.correct {
-    font-style: italic;
-}
-
+    
+    table.standings > tbody > tr > td,
+    table.standings  th[scope=row] {
+        padding: 0.25em 0.5em 0.25em 0.5em;
+        border-bottom: 1px solid;
+    }
+    
+    table.standings > tbody > tr > td:nth-of-type(2n+2) {
+       background: #e0e0e0;
+    }
+    
+    .games > td {
+        padding-right: 1em;
+        border-bottom: 1px solid;
+    }
+    
+        .games table td {
+            padding: 0.2em 0.4em 0 0;
+            text-align: left;
+        }
+    
 .picked {
     font-weight: bold;
 }
@@ -640,6 +658,12 @@ table.standings {
             display: inline-block;
             width: 30px;
         }
+        
+div.player { display: none; } /* only show on mobile */
+
+table .correct {
+    font-weight: bold;
+}
 
 /********************
 *   Mobile Styles   *
@@ -807,4 +831,11 @@ table.standings {
         footer p {
             margin: 0;
         }
+
+    table.standings tr.games,
+    table.standings td:nth-of-type(n+2) {
+        display: none;
+    } /* hide on mobile */
+    
+    div.player { display: block; } /* show on mobile */
 }

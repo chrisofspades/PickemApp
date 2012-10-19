@@ -21,6 +21,7 @@ namespace PickemApp.Controllers
             var listLeaders = WeeklyPlayerPicks.GetWeeklyLeaders(week, year);
 
             ViewBag.Leaders = listLeaders.ToList();
+            ViewBag.Games = db.Games.Where(q => q.Week == week && q.Year == year).OrderBy(o => o.Gsis);
 
             return View(listLeaders.ToList());
         }

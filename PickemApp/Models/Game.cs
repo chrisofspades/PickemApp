@@ -22,5 +22,38 @@ namespace PickemApp.Models
         public int VisitorTeamScore { get; set; }
         public string GameType { get; set; }
         public string WinningTeam { get; set; }
+
+        public string Status
+        {
+            get
+            {
+                string status = this.Quarter;
+                switch (this.Quarter)
+                {
+                    case "F":
+                        status = "Final";
+                        break;
+                    case "FO":
+                        status = "Final/OT";
+                        break;
+                    case "1":
+                        status = "1st";
+                        break;
+                    case "2":
+                        status = "2nd";
+                        break;
+                    case "3":
+                        status = "3rd";
+                        break;
+                    case "4":
+                        status = "4th";
+                        break;
+                    case "P":
+                        status = string.Format("{0} {1}", this.Day, this.Time);
+                        break;
+                }
+                return status;
+            }
+        }
     }
 }
