@@ -11,12 +11,18 @@ namespace PickemApp.Controllers
     {
         private PickemDBContext db = new PickemDBContext();
 
-        //
-        // GET: /Week/2012/1
-
         public ActionResult Index(int week, int year)
         {
             ViewBag.Week = week;
+
+            //get all of the weeks
+            ViewBag.Weeks = (from g in db.Games
+                             where g.Year == year
+                             select new WeeklyPlayerPicks
+                             {
+                                 WeekNumber = g.Week,
+                                 Year = g.Year
+                             }).Distinct().ToList();
 
             var listLeaders = WeeklyPlayerPicks.GetWeeklyLeaders(week, year);
 

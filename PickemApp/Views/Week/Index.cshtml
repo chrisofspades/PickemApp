@@ -4,6 +4,16 @@
     ViewBag.Title = string.Format("Week {0} Results", ViewBag.Week);
 }
 
+<nav id="week-menu">
+    <span class="float-left">Week</span>
+    <ul>
+    @foreach (var week in ViewBag.Weeks)
+    {
+        <li class="@(week.WeekNumber.ToString() == Request.QueryString["week"] ? "current" : "")">@Html.ActionLink((string)string.Format("{0}", week.WeekNumber), "Index", "Week", new { week = @week.WeekNumber, year = @week.Year }, null)</li>
+    }
+    </ul>
+</nav>
+
 <h2>Week @ViewBag.Week</h2>
 
 <table class="standings">
