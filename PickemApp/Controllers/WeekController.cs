@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PickemApp.Models;
+using PickemApp.SyncUtils;
 
 namespace PickemApp.Controllers
 {
@@ -13,6 +14,9 @@ namespace PickemApp.Controllers
 
         public ActionResult Index(int week, int year)
         {
+            //doing the sync here, which is ugly, but will have to suffice until I found a way to do it in the background.
+            NflSync.UpdateGames("http://www.nfl.com/liveupdate/scorestrip/ss.xml");
+
             ViewBag.Week = week;
 
             //get all of the weeks
