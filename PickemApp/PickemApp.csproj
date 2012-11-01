@@ -405,6 +405,9 @@
   <ItemGroup>
     <Content Include="Views\Shared\EditorTemplates\Pick.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\datafiles\2012_NFL_Weeks.xls" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

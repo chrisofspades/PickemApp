@@ -8,6 +8,8 @@ using PickemApp.Models;
 using HtmlAgilityPack;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Data;
+using System.Data.OleDb;
 
 namespace PickemApp.SyncUtils
 {
@@ -46,8 +48,8 @@ namespace PickemApp.SyncUtils
                         game.WinningTeam = game.VisitorTeam;
 
                     int gameId = (from t in db.Games
-                                   where t.Eid == game.Eid
-                                   select t.Id).SingleOrDefault();
+                                  where t.Eid == game.Eid
+                                  select t.Id).SingleOrDefault();
 
                     if (gameId != 0)
                     {
@@ -70,10 +72,10 @@ namespace PickemApp.SyncUtils
                     UpdatePicks(Convert.ToInt32(week.Attribute("w").Value), Convert.ToInt32(week.Attribute("y").Value));
 
                     //Save XML to file if all games are completed
-                    xml.Save(HttpContext.Current.Server.MapPath(VirtualPathUtility.ToAbsolute(string.Format("~/Content/datafiles/{0}Week{1}.xml",  week.Attribute("y").Value, week.Attribute("w").Value))));
+                    xml.Save(HttpContext.Current.Server.MapPath(VirtualPathUtility.ToAbsolute(string.Format("~/Content/datafiles/{0}Week{1}.xml", week.Attribute("y").Value, week.Attribute("w").Value))));
                 }
 
-                
+
             }
 
         }
@@ -83,8 +85,8 @@ namespace PickemApp.SyncUtils
             using (PickemDBContext db = new PickemDBContext())
             {
                 var picks = (from p in db.Picks
-                            join g in db.Games.Where(q => q.Week == week && q.Year == year) on p.GameId equals g.Id
-                            select p).ToList<Pick>();
+                             join g in db.Games.Where(q => q.Week == week && q.Year == year) on p.GameId equals g.Id
+                             select p).ToList<Pick>();
 
                 foreach (Pick p in picks)
                 {
@@ -204,6 +206,161 @@ namespace PickemApp.SyncUtils
                 }
                 db.SaveChanges();
             }
+        }
+
+        public static void UpdatePicksXls(string xlsfile)
+        {
+            xlsfile = HttpContext.Current.Server.MapPath(VirtualPathUtility.ToAbsolute("~/Content/datafiles/" + xlsfile));
+            DataSet ds = ImportExcelXLS(xlsfile, false);
+
+            DataTable dt = ds.Tables[ds.Tables.Count - 1];
+
+            //Year and Week data will be in the first row, column F3, formatted "YYYY / WEEK #"
+            string[] weekData = dt.Rows[0]["F3"].ToString().Split('/');
+
+            int week = 1,
+                year = 2012;
+
+            if (weekData.Length > 0)
+            {
+                year = Convert.ToInt32(weekData[0].Trim());
+                week = Convert.ToInt32(weekData[1].ToUpper().Replace("WEEK", "").Trim());
+            }
+
+            using (PickemDBContext db = new PickemDBContext())
+            {
+                //Create a dictionary of games, where the key is the column name
+                //Games should be in columns 3 - 16
+                int gameColIndexLower = 2,
+                    gameColIndexUpper = 15;
+
+                Dictionary<string, Game> dictGames = new Dictionary<string, Game>();
+                for (int i = gameColIndexLower; i <= gameColIndexUpper; i++)
+                {
+                    //Visitor team is row 4, Home team is row 5
+                    string homeTeam = dt.Rows[4][i].ToString();
+                    string visitorTeam = dt.Rows[3][i].ToString();
+
+                    //Find the game record
+                    Game game = (from g in db.Games
+                                 where g.Week == week && g.Year == year && g.HomeTeam == homeTeam && g.VisitorTeam == visitorTeam
+                                 select g).FirstOrDefault();
+
+                    dictGames.Add(dt.Columns[i].ColumnName, game);
+                }
+
+                List<Pick> newPicks = new List<Pick>();
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    if (!string.IsNullOrEmpty(row["F2"].ToString()))
+                    {
+                        var playerName = row["F2"].ToString();
+                        Player player = db.Players.Where(q => q.Name.ToLower() == playerName.ToLower()).FirstOrDefault();
+
+                        if (player != null)
+                        {
+                            for (int i = gameColIndexLower; i <= gameColIndexUpper; i++)
+                            {
+                                string teamPicked = row[dt.Columns[i].ColumnName].ToString();
+                                Game game = dictGames[dt.Columns[i].ColumnName];
+
+                                if (game != null && !string.IsNullOrEmpty(teamPicked))
+                                {
+                                    int totalPoints = 0;
+
+                                    //Total points will be in the column next to the final game
+                                    if (i == gameColIndexUpper)
+                                    {
+                                        totalPoints = Convert.ToInt32(row[i + 1].ToString());
+                                    }
+
+                                    Pick newPick = new Pick
+                                    {
+                                        PlayerId = player.Id,
+                                        Player = player,
+                                        GameId = game.Id,
+                                        Game = game,
+                                        TeamPicked = teamPicked,
+                                        TotalPoints = totalPoints
+                                    };
+
+                                    newPick.Id = (from o in db.Picks
+                                                  where o.PlayerId == player.Id && o.GameId == game.Id
+                                                  select o.Id).FirstOrDefault();
+
+                                    newPick.PickResult = (newPick.TeamPicked == game.WinningTeam) ? "W" : null;
+
+                                    newPicks.Add(newPick);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                foreach (var item in newPicks)
+                {
+                    if (item.Id != 0)
+                    {
+                        db.Entry(item).State = System.Data.EntityState.Modified;
+                    }
+                    else
+                    {
+                        db.Picks.Add(item);
+                    }
+                }
+                db.SaveChanges();
+            }
+        }
+
+        public static DataSet ImportExcelXLS(string FileName, bool hasHeaders)
+        {
+            string HDR = hasHeaders ? "Yes" : "No";
+            string strConn;
+            if (FileName.Substring(FileName.LastIndexOf('.')).ToLower() == ".xlsx")
+                strConn = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + FileName + ";Extended Properties=\"Excel 12.0;HDR=" + HDR + ";IMEX=0\"";
+            else
+                strConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + FileName + ";Extended Properties=\"Excel 8.0;HDR=" + HDR + ";IMEX=1\"";
+
+            DataSet output = new DataSet();
+
+            using (OleDbConnection conn = new OleDbConnection(strConn))
+            {
+                conn.Open();
+
+                DataTable schemaTable = conn.GetOleDbSchemaTable(
+                    OleDbSchemaGuid.Tables, new object[] { null, null, null, "TABLE" });
+
+                if (schemaTable.Rows.Count == 0)
+                {
+                    DataRow row = schemaTable.NewRow();
+                    row["TABLE_NAME"] = "WEEK 9";
+                    schemaTable.Rows.Add(row);
+                }
+
+                foreach (DataRow schemaRow in schemaTable.Rows)
+                {
+                    string sheet = schemaRow["TABLE_NAME"].ToString();
+
+                    if (!sheet.EndsWith("_"))
+                    {
+                        try
+                        {
+                            OleDbCommand cmd = new OleDbCommand("SELECT * FROM [" + sheet + "]", conn);
+                            cmd.CommandType = CommandType.Text;
+
+                            DataTable outputTable = new DataTable(sheet);
+                            output.Tables.Add(outputTable);
+                            new OleDbDataAdapter(cmd).Fill(outputTable);
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new Exception(ex.Message + string.Format("Sheet:{0}.File:F{1}", sheet, FileName), ex);
+                        }
+                    }
+                }
+            }
+            return output;
         }
     }
 

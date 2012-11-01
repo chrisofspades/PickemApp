@@ -38,7 +38,14 @@ namespace PickemApp.Controllers
                 return HttpNotFound();
             }
 
-            PickSync.UpdatePicks(h);
+            if (h.Contains(".xls"))
+            {
+                PickSync.UpdatePicksXls(h);
+            }
+            else
+            {
+                PickSync.UpdatePicks(h);
+            }
 
             ViewBag.Message = "Picks updated.";
 
