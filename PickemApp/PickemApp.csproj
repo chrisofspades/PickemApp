@@ -406,7 +406,9 @@
     <Content Include="Views\Shared\EditorTemplates\Pick.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\datafiles\2012_NFL_Weeks.xls" />
+    <Content Include="Content\datafiles\2012_NFL_Weeks.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
