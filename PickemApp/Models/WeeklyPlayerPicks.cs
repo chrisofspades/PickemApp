@@ -52,7 +52,7 @@ namespace PickemApp.Models
                         //Do something with the picks here so the view doesn't throw System.ObjectDisposedException
                         foreach (var pick in wpp.Picks)
                         {
-                            pick.Game = db.Games.Find(pick.GameId);
+                            pick.Game.HomeTeam = pick.Game.HomeTeam;
                         }
 
                         listLeaders.Add(wpp);
