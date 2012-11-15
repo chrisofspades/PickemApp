@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ss>
+  <gms w="11" y="2012" t="R" gd="1" bph="0">
+    <g eid="2012111500" gsis="55650" d="Thu" t="8:20" q="P" h="BUF" hnn="bills" hs="0" v="MIA" vnn="dolphins" vs="0" rz="0" ga="" gt="REG" />
+    <g eid="2012111802" gsis="55651" d="Sun" t="1:00" q="P" h="ATL" hnn="falcons" hs="0" v="ARI" vnn="cardinals" vs="0" rz="0" ga="" gt="REG" />
+    <g eid="2012111803" gsis="55652" d="Sun" t="1:00" q="P" h="CAR" hnn="panthers" hs="0" v="TB" vnn="buccaneers" vs="0" rz="0" ga="" gt="REG" />
+    <g eid="2012111804" gsis="55653" d="Sun" t="1:00" q="P" h="DAL" hnn="cowboys" hs="0" v="CLE" vnn="browns" vs="0" rz="0" ga="" gt="REG" />
+    <g eid="2012111801" gsis="55654" d="Sun" t="1:00" q="P" h="DET" hnn="lions" hs="0" v="GB" vnn="packers" vs="0" rz="0" ga="" gt="REG" />
+    <g eid="2012111807" gsis="55655" d="Sun" t="1:00" q="P" h="HOU" hnn="texans" hs="0" v="JAC" vnn="jaguars" vs="0" rz="0" ga="" gt="REG" />
+    <g eid="2012111808" gsis="55656" d="Sun" t="1:00" q="P" h="KC" hnn="chiefs" hs="0" v="CIN" vnn="bengals" vs="0" rz="0" ga="" gt="REG" />
+    <g eid="2012111805" gsis="55658" d="Sun" t="1:00" q="P" h="STL" hnn="rams" hs="0" v="NYJ" vnn="jets" vs="0" rz="0" ga="" gt="REG" />
+    <g eid="2012111800" gsis="55659" d="Sun" t="1:00" q="P" h="WAS" hnn="redskins" hs="0" v="PHI" vnn="eagles" vs="0" rz="0" ga="" gt="REG" />
+    <g eid="2012111809" gsis="55660" d="Sun" t="4:05" q="P" h="OAK" hnn="raiders" hs="0" v="NO" vnn="saints" vs="0" rz="0" ga="" gt="REG" />
+    <g eid="2012111810" gsis="55661" d="Sun" t="4:25" q="P" h="DEN" hnn="broncos" hs="0" v="SD" vnn="chargers" vs="0" rz="0" ga="" gt="REG" />
+    <g eid="2012111806" gsis="55657" d="Sun" t="4:25" q="P" h="NE" hnn="patriots" hs="0" v="IND" vnn="colts" vs="0" rz="0" ga="" gt="REG" />
+    <g eid="2012111811" gsis="55662" d="Sun" t="8:20" q="P" h="PIT" hnn="steelers" hs="0" v="BAL" vnn="ravens" vs="0" rz="0" ga="" gt="REG" />
+    <g eid="2012111900" gsis="55663" d="Mon" t="8:30" q="P" h="SF" hnn="49ers" hs="0" v="CHI" vnn="bears" vs="0" rz="0" ga="" gt="REG" />
+  </gms>
+</ss>
