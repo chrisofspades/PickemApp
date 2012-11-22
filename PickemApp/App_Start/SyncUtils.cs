@@ -230,9 +230,9 @@ namespace PickemApp.SyncUtils
             using (PickemDBContext db = new PickemDBContext())
             {
                 //Create a dictionary of games, where the key is the column name
-                //Games should be in columns 3 - 16
+                //Games should be in columns 3 - 18
                 int gameColIndexLower = 2,
-                    gameColIndexUpper = 15;
+                    gameColIndexUpper = 17;
 
                 Dictionary<string, Game> dictGames = new Dictionary<string, Game>();
                 for (int i = gameColIndexLower; i <= gameColIndexUpper; i++)
