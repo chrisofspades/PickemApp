@@ -322,7 +322,9 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Content\datafiles\Week2.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -407,6 +409,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\datafiles\2012_NFL_Weeks.xls">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\datafiles\2013_NFL_Weeks.xls">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

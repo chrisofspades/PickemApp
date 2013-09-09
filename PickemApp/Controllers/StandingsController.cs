@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Configuration;
+
 using PickemApp.Models;
 
 namespace PickemApp.Controllers
@@ -16,8 +18,9 @@ namespace PickemApp.Controllers
 
         public ActionResult Index()
         {
+            int year = ConfigurationManager.AppSettings["currentYear"] != null ? Convert.ToInt32(ConfigurationManager.AppSettings["currentYear"]) : DateTime.Today.Year;
 
-            var playerPicks = (from g in db.Games
+            var playerPicks = (from g in db.Games.Where(x => x.Year == year)
                                join p in db.Picks on g.Id equals p.GameId into j1
                                from j2 in j1.DefaultIfEmpty()
                                group j2 by new { j2.PlayerId } into grp

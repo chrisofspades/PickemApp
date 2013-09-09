@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using PickemApp.SyncUtils;
 using PickemApp.Models;
-
+using System.Configuration;
 
 namespace PickemApp.Controllers
 {
@@ -20,8 +20,10 @@ namespace PickemApp.Controllers
             //doing the sync here, which is ugly, but will have to suffice until I found a way to do it in the background.
             NflSync.UpdateGames("http://www.nfl.com/liveupdate/scorestrip/ss.xml");
 
+            int year = ConfigurationManager.AppSettings["currentYear"] != null ? Convert.ToInt32(ConfigurationManager.AppSettings["currentYear"]) : DateTime.Today.Year;
+
             //get all of the weeks
-            var weeks = (from g in db.Games
+            var weeks = (from g in db.Games.Where(x => x.Year == year)
                          select new WeeklyPlayerPicks
                          {
                              WeekNumber = g.Week,
