@@ -191,6 +191,10 @@
     <Compile Include="Migrations\201209172326226_AddForeignKeys.Designer.cs">
       <DependentUpon>201209172326226_AddForeignKeys.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201310101533536_ChangeTotalPointsDataType.cs" />
+    <Compile Include="Migrations\201310101533536_ChangeTotalPointsDataType.Designer.cs">
+      <DependentUpon>201310101533536_ChangeTotalPointsDataType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\BulkPickEditor.cs" />
@@ -372,6 +376,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201209172326226_AddForeignKeys.resx">
       <DependentUpon>201209172326226_AddForeignKeys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201310101533536_ChangeTotalPointsDataType.resx">
+      <DependentUpon>201310101533536_ChangeTotalPointsDataType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

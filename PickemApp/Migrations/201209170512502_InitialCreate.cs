@@ -7,14 +7,14 @@ namespace PickemApp.Migrations
     {
         public override void Up()
         {
-            CreateTable(
-                "dbo.Players",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
-                    })
-                .PrimaryKey(t => t.ID);
+            //CreateTable(
+            //    "dbo.Players",
+            //    c => new
+            //        {
+            //            ID = c.Int(nullable: false, identity: true),
+            //            Name = c.String(),
+            //        })
+            //    .PrimaryKey(t => t.ID);
             
         }
         

@@ -7,25 +7,25 @@ namespace PickemApp.Migrations
     {
         public override void Up()
         {
-            DropForeignKey("dbo.Picks", "Player_ID", "dbo.Players");
-            DropForeignKey("dbo.Picks", "Game_ID", "dbo.Games");
-            DropIndex("dbo.Picks", new[] { "Player_ID" });
-            DropIndex("dbo.Picks", new[] { "Game_ID" });
-            RenameColumn(table: "dbo.Picks", name: "Player_ID", newName: "PlayerId");
-            RenameColumn(table: "dbo.Picks", name: "Game_ID", newName: "GameId");
-            AlterColumn("dbo.Players", "Id", c => c.Int(nullable: false, identity: true));
-            AlterColumn("dbo.Games", "Id", c => c.Int(nullable: false, identity: true));
-            AlterColumn("dbo.Picks", "Id", c => c.Int(nullable: false, identity: true));
-            DropPrimaryKey("dbo.Players", new[] { "ID" });
-            AddPrimaryKey("dbo.Players", "Id");
-            DropPrimaryKey("dbo.Games", new[] { "ID" });
-            AddPrimaryKey("dbo.Games", "Id");
-            DropPrimaryKey("dbo.Picks", new[] { "ID" });
-            AddPrimaryKey("dbo.Picks", "Id");
-            AddForeignKey("dbo.Picks", "PlayerId", "dbo.Players", "Id", cascadeDelete: true);
-            AddForeignKey("dbo.Picks", "GameId", "dbo.Games", "Id", cascadeDelete: true);
-            CreateIndex("dbo.Picks", "PlayerId");
-            CreateIndex("dbo.Picks", "GameId");
+            //DropForeignKey("dbo.Picks", "Player_ID", "dbo.Players");
+            //DropForeignKey("dbo.Picks", "Game_ID", "dbo.Games");
+            //DropIndex("dbo.Picks", new[] { "Player_ID" });
+            //DropIndex("dbo.Picks", new[] { "Game_ID" });
+            //RenameColumn(table: "dbo.Picks", name: "Player_ID", newName: "PlayerId");
+            //RenameColumn(table: "dbo.Picks", name: "Game_ID", newName: "GameId");
+            //AlterColumn("dbo.Players", "Id", c => c.Int(nullable: false, identity: true));
+            //AlterColumn("dbo.Games", "Id", c => c.Int(nullable: false, identity: true));
+            //AlterColumn("dbo.Picks", "Id", c => c.Int(nullable: false, identity: true));
+            //DropPrimaryKey("dbo.Players", new[] { "ID" });
+            //AddPrimaryKey("dbo.Players", "Id");
+            //DropPrimaryKey("dbo.Games", new[] { "ID" });
+            //AddPrimaryKey("dbo.Games", "Id");
+            //DropPrimaryKey("dbo.Picks", new[] { "ID" });
+            //AddPrimaryKey("dbo.Picks", "Id");
+            //AddForeignKey("dbo.Picks", "PlayerId", "dbo.Players", "Id", cascadeDelete: true);
+            //AddForeignKey("dbo.Picks", "GameId", "dbo.Games", "Id", cascadeDelete: true);
+            //CreateIndex("dbo.Picks", "PlayerId");
+            //CreateIndex("dbo.Picks", "GameId");
         }
         
         public override void Down()

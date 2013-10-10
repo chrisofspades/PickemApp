@@ -25,7 +25,7 @@ namespace PickemApp.Models
         public virtual Game Game { get; set; }
         
         public string TeamPicked { get; set; }
-        public int TotalPoints { get; set; }
+        public double TotalPoints { get; set; }
         public string PickResult { get; set; }
     }
 }

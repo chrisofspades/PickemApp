@@ -267,12 +267,12 @@ namespace PickemApp.SyncUtils
 
                                 if (game != null && !string.IsNullOrEmpty(teamPicked))
                                 {
-                                    int totalPoints = 0;
+                                    double totalPoints = 0;
 
                                     //Total points will be in the column next to the final game
                                     if (i == gameColIndexUpper)
                                     {
-                                        totalPoints = Convert.ToInt32(row[i + 1].ToString());
+                                        totalPoints = Convert.ToDouble(row[i + 1].ToString());
                                     }
 
                                     Pick newPick = new Pick
