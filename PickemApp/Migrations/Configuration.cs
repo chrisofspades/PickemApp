@@ -9,7 +9,7 @@ namespace PickemApp.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(PickemApp.Models.PickemDBContext context)
