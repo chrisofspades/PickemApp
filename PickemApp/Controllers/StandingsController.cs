@@ -16,9 +16,12 @@ namespace PickemApp.Controllers
         //
         // GET: /Standings/
 
-        public ActionResult Index()
+        public ActionResult Index(int? year)
         {
-            int year = ConfigurationManager.AppSettings["currentYear"] != null ? Convert.ToInt32(ConfigurationManager.AppSettings["currentYear"]) : DateTime.Today.Year;
+            if (!year.HasValue)
+            {
+                year = ConfigurationManager.AppSettings["currentYear"] != null ? Convert.ToInt32(ConfigurationManager.AppSettings["currentYear"]) : DateTime.Today.Year;
+            }
 
             var playerPicks = (from g in db.Games.Where(x => x.Year == year)
                                join p in db.Picks on g.Id equals p.GameId into j1
@@ -49,6 +52,7 @@ namespace PickemApp.Controllers
             }
 
             ViewBag.PlayerPicks = wpp.ToList();
+            ViewBag.Year = year;
 
             return View();
         }
