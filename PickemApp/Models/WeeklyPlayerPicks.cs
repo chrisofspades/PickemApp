@@ -15,21 +15,40 @@ namespace PickemApp.Models
         public double TieBreaker { get; set; }
         public List<Pick> Picks { get; set; }
 
-        public static List<WeeklyPlayerPicks> GetWeeklyLeaders(int week, int year)
+        public static List<WeeklyPlayerPicks> GetWeeklyLeaders(int week, int year, bool completed = false)
         {
             using (PickemDBContext db = new PickemDBContext())
             {
-                var leaders = (from g in db.Games.Where(p => p.Week == week && p.Year == year)
-                               join p in db.Picks on g.Id equals p.GameId into j1
-                               from j2 in j1.DefaultIfEmpty()
-                               group j2 by new { g.Week, g.Year, j2.PlayerId } into grp
-                               orderby grp.Count(t => t.PickResult == "W") descending
-                               select new
-                               {
-                                   PlayerId = (int?)grp.Key.PlayerId,
-                                   CorrectPicks = grp.Count(t => t.PickResult == "W")
-                               }
-                                   );
+                var leaders = SequenceByExample(new { PlayerId = (int?)0, CorrectPicks = 0});
+                if (!completed)
+                {
+                    leaders = (from g in db.Games.Where(p => p.Week == week && p.Year == year)
+                                   join p in db.Picks on g.Id equals p.GameId into j1
+                                   from j2 in j1.DefaultIfEmpty()
+                                   group j2 by new { g.Week, g.Year, j2.PlayerId } into grp
+                                   orderby grp.Count(t => t.PickResult == "W") descending
+                                   select new
+                                   {
+                                       PlayerId = (int?)grp.Key.PlayerId,
+                                       CorrectPicks = grp.Count(t => t.PickResult == "W")
+                                   }
+                   );
+                }
+                else
+                {
+                    leaders = (from g in db.Games.Where(p => p.Week == week && p.Year == year)
+                                   join p in db.Picks on g.Id equals p.GameId into j1
+                                   from j2 in j1.DefaultIfEmpty()
+                                   group j2 by new { g.Week, g.Year, j2.PlayerId } into grp
+                                   orderby grp.Count(t => t.PickResult == "W") descending
+                                   select new
+                                   {
+                                       PlayerId = (int?)grp.Key.PlayerId,
+                                       CorrectPicks = grp.Count(t => t.PickResult == "W" && t.Game.Quarter.StartsWith("F"))
+                                   }
+                                       );
+                }
+
 
                 List<WeeklyPlayerPicks> listLeaders = new List<WeeklyPlayerPicks>();
                 foreach (var pp in leaders)
@@ -62,6 +81,8 @@ namespace PickemApp.Models
                 return listLeaders.OrderByDescending(o => o.CorrectPicks).ThenBy(o => o.TieBreaker).ToList();
             }
         }
+
+        static IEnumerable<T> SequenceByExample<T>(T t) { return null; }
 
     }
 }

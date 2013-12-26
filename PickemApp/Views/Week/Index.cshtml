@@ -9,12 +9,17 @@
     <ul>
     @foreach (var week in ViewBag.Weeks)
     {
-        <li class="@(week.WeekNumber.ToString() == Request.QueryString["week"] ? "current" : "")">@Html.ActionLink((string)string.Format("{0}", week.WeekNumber), "Index", "Week", new { week = @week.WeekNumber, year = @week.Year }, null)</li>
+        <li class="@(week.WeekNumber.ToString() == Request.QueryString["week"] ? "current" : "")">@Html.ActionLink((string)string.Format("{0}", week.WeekNumber), "Index", "Week", new { week = @week.WeekNumber, year = @week.Year, completed = Request.QueryString["completed"] }, null)</li>
     }
     </ul>
 </nav>
 
 <h2>Week @ViewBag.Week</h2>
+
+<div>
+    @Html.ActionLink("Live Scores", "Index", "Week", new { week = Request.QueryString["week"], year = Request.QueryString["year"], completed = false }, new { @class = Request.QueryString["completed"].AsBool() != true ? "picked" : ""}) |
+    @Html.ActionLink("Completed Games", "Index", "Week", new { week = Request.QueryString["week"], year = Request.QueryString["year"], completed = true }, new { @class = Request.QueryString["completed"].AsBool() == true ? "picked" : "" })
+</div>
 
 <table class="standings">
     <tr class="games">
@@ -23,12 +28,12 @@
     {
         <td>
             <table>
-                <tr class="@(g.WinningTeam == g.VisitorTeam ? "correct" : "")">
+                <tr class="@((g.WinningTeam == g.VisitorTeam && (Request.QueryString["completed"].AsBool() != true || (Request.QueryString["completed"].AsBool() == true && g.Quarter.StartsWith("F")))) ? "correct" : "")">
                     <td>@g.VisitorTeam</td>
                     <td>@g.VisitorTeamScore</td>
                     
                 </tr>
-                <tr class="@(g.WinningTeam == g.HomeTeam ? "correct" : "")">
+                <tr class="@((g.WinningTeam == g.HomeTeam && (Request.QueryString["completed"].AsBool() != true || (Request.QueryString["completed"].AsBool() == true && g.Quarter.StartsWith("F")))) ? "correct" : "")">
                     <td>@g.HomeTeam</td>
                     <td>@g.HomeTeamScore</td>
                 </tr>
@@ -46,7 +51,7 @@
         <td class="number">@pp.CorrectPicks</td>
         @foreach (var pick in pp.Picks.OrderBy(o => o.Game.Gsis))
         {
-            <td class="@(pick.PickResult == "W" ? "correct" : "")">
+            <td class="@((pick.PickResult == "W" && (Request.QueryString["completed"].AsBool() != true || (Request.QueryString["completed"].AsBool() == true && pick.Game.Quarter.StartsWith("F")))) ? "correct" : "")">
                 @pick.TeamPicked       
                 @if (pick.TotalPoints > 0)
                 {
@@ -65,9 +70,9 @@
     <ul>
     @foreach (var pick in pp.Picks)
     {
-        <li class="@(pick.PickResult == "W" ? "correct" : "")">
-            <span class="team@(pick.TeamPicked == pick.Game.VisitorTeam ? " picked" : "")">@pick.Game.VisitorTeam</span> @@ 
-            <span class="team@(pick.TeamPicked == pick.Game.HomeTeam ? " picked" : "")">@pick.Game.HomeTeam</span>
+        <li class="@((pick.PickResult == "W" && (Request.QueryString["completed"].AsBool() != true || (Request.QueryString["completed"].AsBool() == true && pick.Game.Quarter.StartsWith("F")))) ? "correct" : "")">
+            <span class="team@((pick.TeamPicked == pick.Game.VisitorTeam && (Request.QueryString["completed"].AsBool() != true || (Request.QueryString["completed"].AsBool() == true && pick.Game.Quarter.StartsWith("F")))) ? " picked" : "")">@pick.Game.VisitorTeam</span> @@ 
+            <span class="team@((pick.TeamPicked == pick.Game.HomeTeam && (Request.QueryString["completed"].AsBool() != true || (Request.QueryString["completed"].AsBool() == true && pick.Game.Quarter.StartsWith("F")))) ? " picked" : "")">@pick.Game.HomeTeam</span>
             @if (pick.TotalPoints > 0)
             {
                 <span class="total-points">(@pick.TotalPoints)</span>

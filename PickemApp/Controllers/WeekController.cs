@@ -12,7 +12,7 @@ namespace PickemApp.Controllers
     {
         private PickemDBContext db = new PickemDBContext();
 
-        public ActionResult Index(int week, int year)
+        public ActionResult Index(int week, int year, bool completed = false)
         {
             //doing the sync here, which is ugly, but will have to suffice until I found a way to do it in the background.
             NflSync.UpdateGames("http://www.nfl.com/liveupdate/scorestrip/ss.xml");
@@ -28,7 +28,7 @@ namespace PickemApp.Controllers
                                  Year = g.Year
                              }).Distinct().ToList();
 
-            var listLeaders = WeeklyPlayerPicks.GetWeeklyLeaders(week, year);
+            var listLeaders = WeeklyPlayerPicks.GetWeeklyLeaders(week, year, completed);
 
             ViewBag.Leaders = listLeaders.ToList();
             ViewBag.Games = db.Games.Where(q => q.Week == week && q.Year == year).OrderBy(o => o.Gsis);
