@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ss>
-  <gms w="16" y="2013" t="R" gd="0" bph="0">
-    <g eid="2013122200" gsis="56061" d="Sun" t="1:00" q="P" h="BUF" hnn="bills" hs="0" v="MIA" vnn="dolphins" vs="0" rz="0" ga="" gt="REG" />
-    <g eid="2013122201" gsis="56062" d="Sun" t="1:00" q="P" h="CAR" hnn="panthers" hs="0" v="NO" vnn="saints" vs="0" rz="0" ga="" gt="REG" />
-    <g eid="2013122202" gsis="56063" d="Sun" t="1:00" q="P" h="CIN" hnn="bengals" hs="0" v="MIN" vnn="vikings" vs="0" rz="0" ga="" gt="REG" />
-    <g eid="2013122203" gsis="56064" d="Sun" t="1:00" q="P" h="HOU" hnn="texans" hs="0" v="DEN" vnn="broncos" vs="0" rz="0" ga="" gt="REG" />
-    <g eid="2013122204" gsis="56065" d="Sun" t="1:00" q="P" h="JAC" hnn="jaguars" hs="0" v="TEN" vnn="titans" vs="0" rz="0" ga="" gt="REG" />
-    <g eid="2013122205" gsis="56066" d="Sun" t="1:00" q="P" h="KC" hnn="chiefs" hs="0" v="IND" vnn="colts" vs="0" rz="0" ga="" gt="REG" />
-    <g eid="2013122206" gsis="56067" d="Sun" t="1:00" q="P" h="NYJ" hnn="jets" hs="0" v="CLE" vnn="browns" vs="0" rz="0" ga="" gt="REG" />
-    <g eid="2013122208" gsis="56069" d="Sun" t="1:00" q="P" h="STL" hnn="rams" hs="0" v="TB" vnn="buccaneers" vs="0" rz="0" ga="" gt="REG" />
-    <g eid="2013122209" gsis="56070" d="Sun" t="1:00" q="P" h="WAS" hnn="redskins" hs="0" v="DAL" vnn="cowboys" vs="0" rz="0" ga="" gt="REG" />
-    <g eid="2013122210" gsis="56071" d="Sun" t="4:05" q="P" h="DET" hnn="lions" hs="0" v="NYG" vnn="giants" vs="0" rz="0" ga="" gt="REG" />
-    <g eid="2013122211" gsis="56072" d="Sun" t="4:05" q="P" h="SEA" hnn="seahawks" hs="0" v="ARI" vnn="cardinals" vs="0" rz="0" ga="" gt="REG" />
+  <gms w="16" y="2013" t="R" gd="1" bph="70">
+    <g eid="2013122200" gsis="56061" d="Sun" t="1:00" q="F" h="BUF" hnn="bills" hs="19" v="MIA" vnn="dolphins" vs="0" rz="0" ga="" gt="REG" />
+    <g eid="2013122201" gsis="56062" d="Sun" t="1:00" q="F" h="CAR" hnn="panthers" hs="17" v="NO" vnn="saints" vs="13" rz="0" ga="" gt="REG" />
+    <g eid="2013122202" gsis="56063" d="Sun" t="1:00" q="F" h="CIN" hnn="bengals" hs="42" v="MIN" vnn="vikings" vs="14" rz="0" ga="" gt="REG" />
+    <g eid="2013122203" gsis="56064" d="Sun" t="1:00" q="4" k="02:00" h="HOU" hnn="texans" hs="13" v="DEN" vnn="broncos" vs="37" p="DEN" rz="0" ga="" gt="REG" />
+    <g eid="2013122204" gsis="56065" d="Sun" t="1:00" q="F" h="JAC" hnn="jaguars" hs="16" v="TEN" vnn="titans" vs="20" rz="0" ga="" gt="REG" />
+    <g eid="2013122205" gsis="56066" d="Sun" t="1:00" q="F" h="KC" hnn="chiefs" hs="7" v="IND" vnn="colts" vs="23" rz="0" ga="" gt="REG" />
+    <g eid="2013122206" gsis="56067" d="Sun" t="1:00" q="F" h="NYJ" hnn="jets" hs="24" v="CLE" vnn="browns" vs="13" rz="0" ga="" gt="REG" />
+    <g eid="2013122208" gsis="56069" d="Sun" t="1:00" q="F" h="STL" hnn="rams" hs="23" v="TB" vnn="buccaneers" vs="13" rz="0" ga="" gt="REG" />
+    <g eid="2013122209" gsis="56070" d="Sun" t="1:00" q="F" h="WAS" hnn="redskins" hs="23" v="DAL" vnn="cowboys" vs="24" rz="0" ga="" gt="REG" />
+    <g eid="2013122210" gsis="56071" d="Sun" t="4:05" q="1" k="09:31" h="DET" hnn="lions" hs="0" v="NYG" vnn="giants" vs="0" p="NYG" rz="0" ga="" gt="REG" />
+    <g eid="2013122211" gsis="56072" d="Sun" t="4:05" q="1" k="11:59" h="SEA" hnn="seahawks" hs="0" v="ARI" vnn="cardinals" vs="0" p="ARI" rz="1" ga="" gt="REG" />
     <g eid="2013122214" gsis="56075" d="Sun" t="4:25" q="P" h="BAL" hnn="ravens" hs="0" v="NE" vnn="patriots" vs="0" rz="0" ga="" gt="REG" />
     <g eid="2013122212" gsis="56073" d="Sun" t="4:25" q="P" h="GB" hnn="packers" hs="0" v="PIT" vnn="steelers" vs="0" rz="0" ga="" gt="REG" />
     <g eid="2013122213" gsis="56074" d="Sun" t="4:25" q="P" h="SD" hnn="chargers" hs="0" v="OAK" vnn="raiders" vs="0" rz="0" ga="" gt="REG" />
