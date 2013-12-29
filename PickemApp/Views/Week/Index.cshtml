@@ -49,7 +49,7 @@
     <tr class="player">
         <th scope="row">@pp.Player.Name</th>
         <td class="number">@pp.CorrectPicks</td>
-        @foreach (var pick in pp.Picks.OrderBy(o => o.Game.Gsis))
+        @foreach (var pick in pp.Picks.OrderBy(o => o.Game.Time).ThenBy(o => o.Game.Gsis))
         {
             <td class="@((pick.PickResult == "W" && (Request.QueryString["completed"].AsBool() != true || (Request.QueryString["completed"].AsBool() == true && pick.Game.Quarter.StartsWith("F")))) ? "correct" : "")">
                 @pick.TeamPicked       
