@@ -64,9 +64,11 @@ namespace PickemApp.Models
                             Picks = db.Picks.Where(q => q.PlayerId == pp.PlayerId && q.Game.Week == week && q.Game.Year == year).ToList()
                         };
 
-                        wpp.TieBreaker = (from p in db.Picks
-                                            where p.PlayerId == pp.PlayerId && p.Game.Week == week && p.Game.Year == year && p.TotalPoints > 0
-                                            select Math.Abs(p.TotalPoints - (p.Game.HomeTeamScore + p.Game.VisitorTeamScore))).FirstOrDefault();
+                        var tieBreakerPick = wpp.Picks.FirstOrDefault(p => p.TotalPoints > 0);
+                        if (tieBreakerPick != null)
+                        {
+                            wpp.TieBreaker = Math.Abs(tieBreakerPick.TotalPoints - (tieBreakerPick.Game.HomeTeamScore + tieBreakerPick.Game.VisitorTeamScore));
+                        }
 
                         //Do something with the picks here so the view doesn't throw System.ObjectDisposedException
                         foreach (var pick in wpp.Picks)
