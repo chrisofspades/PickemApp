@@ -15,7 +15,8 @@ namespace PickemApp.Controllers
         public ActionResult Index(int week, int year, bool completed = false)
         {
             //doing the sync here, which is ugly, but will have to suffice until I found a way to do it in the background.
-            NflSync.UpdateGames("http://www.nfl.com/liveupdate/scorestrip/ss.xml");
+            //2014-09-06: using CloudScheduler now so I can stop doing this!
+            //NflSync.UpdateGames("http://www.nfl.com/liveupdate/scorestrip/ss.xml");
 
             ViewBag.Week = week;
 
