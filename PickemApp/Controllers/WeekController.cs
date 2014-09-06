@@ -29,7 +29,7 @@ namespace PickemApp.Controllers
                              }).Distinct().ToList();
 
             var listLeaders = WeeklyPlayerPicks.GetWeeklyLeaders(week, year, completed);
-            var games = db.Games.Where(q => q.Week == week && q.Year == year).OrderBy(o => o.Time).ThenBy(o => o.Gsis).ToList();
+            var games = db.Games.Where(q => q.Week == week && q.Year == year).OrderBy(o => o.Eid.Substring(0, 8)).ThenBy(o => o.Time).ThenBy(o => o.Gsis).ToList();
             
             ViewBag.Leaders = listLeaders.ToList();
             ViewBag.Games = games;
