@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -31,25 +32,50 @@ namespace PickemApp.Controllers
             return View("Index");
         }
 
-        public ActionResult Picks(string h)
+        public ActionResult Picks(string h = "")
         {
-            if (string.IsNullOrEmpty(h))
+            if (!string.IsNullOrEmpty(h))
             {
-                return HttpNotFound();
+                if (h.Contains(".xls"))
+                {
+                    PickSync.UpdatePicksXls(h);
+                }
+                else
+                {
+                    PickSync.UpdatePicks(h);
+                }
+
+                ViewBag.Message = "Picks updated.";
+
+                return View("Index");
             }
 
-            if (h.Contains(".xls"))
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Picks(HttpPostedFileBase file)
+        {
+
+            if (file.ContentLength > 0)
             {
-                PickSync.UpdatePicksXls(h);
-            }
-            else
-            {
-                PickSync.UpdatePicks(h);
+                var fileName = Path.GetFileName(file.FileName);
+                var path = Path.Combine(Server.MapPath("~/Content/datafiles"), fileName);
+                file.SaveAs(path);
+
+                if (fileName.Contains(".xls"))
+                {
+                    PickSync.UpdatePicksXls(fileName);
+                }
+                else
+                {
+                    PickSync.UpdatePicks(fileName);
+                }
+
+                ViewBag.Message = "Picks updated.";
             }
 
-            ViewBag.Message = "Picks updated.";
-
-            return View("Index");
+            return RedirectToAction("Index");
         }
     }
 }
