@@ -24,23 +24,15 @@ namespace PickemApp.Controllers
             int year = ConfigurationManager.AppSettings["currentYear"] != null ? Convert.ToInt32(ConfigurationManager.AppSettings["currentYear"]) : DateTime.Today.Year;
 
             //get all of the weeks
-            var weeks = (from g in db.Games.Where(x => x.Year == year)
-                         select new WeeklyPlayerPicks
-                         {
-                             WeekNumber = g.Week,
-                             Year = g.Year
-                         }).Distinct().ToList();
-
-
-            //find the leader for each week
-            for (var i = 0; i < weeks.Count; i++)
-            {
-                weeks[i] = WeeklyPlayerPicks.GetWeeklyLeaders(weeks[i].WeekNumber, weeks[i].Year).FirstOrDefault() ?? weeks[i];
-                if (weeks[i].Player == null)
-                {
-                    weeks[i].Player = new Player();
-                }
-            }
+            var weeks = (from v in db.vwWeeklyPlayerPicks
+                     where v.Year == year && v.Rank == 1
+                     orderby v.Week
+                     select new WeeklyPlayerPicks
+                     {
+                         WeekNumber = v.Week,
+                         Year = v.Year,
+                         Player = v.Player
+                     }).ToList();
 
             ViewBag.Weeks = weeks;
 

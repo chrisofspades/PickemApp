@@ -23,33 +23,16 @@ namespace PickemApp.Controllers
                 year = ConfigurationManager.AppSettings["currentYear"] != null ? Convert.ToInt32(ConfigurationManager.AppSettings["currentYear"]) : DateTime.Today.Year;
             }
 
-            var playerPicks = (from g in db.Games.Where(x => x.Year == year)
-                               join p in db.Picks on g.Id equals p.GameId into j1
-                               from j2 in j1.DefaultIfEmpty()
-                               group j2 by new { j2.PlayerId } into grp
-                               orderby grp.Count(t => t.PickResult == "W") descending
-                               select new
-                               {
-                                   PlayerId = (int?)grp.Key.PlayerId,
-                                   CorrectPicks = grp.Count(t => t.PickResult == "W")
-                               }
-                               );
-
-            List<WeeklyPlayerPicks> wpp = new List<WeeklyPlayerPicks>();
-            foreach (var pp in playerPicks)
-            {
-                if (pp.PlayerId != null)
-                {
-                    using (PickemDBContext db2 = new PickemDBContext())
-                    {
-                        wpp.Add(new WeeklyPlayerPicks()
-                        {
-                            Player = db2.Players.Find(pp.PlayerId),
-                            CorrectPicks = pp.CorrectPicks
-                        });
-                    }
-                }
-            }
+            var wpp = from v in db.vwWeeklyPlayerPicks
+                      where v.Year == year
+                      group v by new { v.PlayerId, v.PlayerName } into g
+                      orderby g.Sum(x => x.CorrectPicks) descending, g.Sum(x => x.TieBreaker) ascending
+                      select new WeeklyPlayerPicks
+                      {
+                          PlayerId = g.Key.PlayerId, 
+                          PlayerName = g.Key.PlayerName,
+                          CorrectPicks = g.Sum(x => x.CorrectPicks)
+                      };
 
             ViewBag.PlayerPicks = wpp.ToList();
             ViewBag.Year = year;

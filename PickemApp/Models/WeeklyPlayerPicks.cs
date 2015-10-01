@@ -10,7 +10,9 @@ namespace PickemApp.Models
     {
         public int WeekNumber { get; set; }
         public int Year { get; set; }
-        public Player Player { get; set; } 
+        public Player Player { get; set; }
+        public int PlayerId { get; set; }
+        public string PlayerName { get; set; }
         public int CorrectPicks { get; set; }
         public double TieBreaker { get; set; }
         public List<Pick> Picks { get; set; }
