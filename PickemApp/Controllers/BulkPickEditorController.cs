@@ -59,7 +59,7 @@ namespace PickemApp.Controllers
                 {
                     if (pick.Id != 0)
                     {
-                        db.Entry(pick).State = System.Data.EntityState.Modified;
+                        db.Entry(pick).State = System.Data.Entity.EntityState.Modified;
                     }
                     else
                     {

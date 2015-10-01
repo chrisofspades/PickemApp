@@ -55,7 +55,7 @@ namespace PickemApp.SyncUtils
                     {
                         game.Id = Convert.ToInt32(gameId);
 
-                        db.Entry(game).State = System.Data.EntityState.Modified;
+                        db.Entry(game).State = System.Data.Entity.EntityState.Modified;
                     }
                     else
                     {
@@ -91,7 +91,7 @@ namespace PickemApp.SyncUtils
                 foreach (Pick p in picks)
                 {
                     p.PickResult = (p.TeamPicked == p.Game.WinningTeam) ? "W" : null;
-                    db.Entry(p).State = System.Data.EntityState.Modified;
+                    db.Entry(p).State = System.Data.Entity.EntityState.Modified;
                 }
 
                 db.SaveChanges();
@@ -197,7 +197,7 @@ namespace PickemApp.SyncUtils
                 {
                     if (item.Id != 0)
                     {
-                        db.Entry(item).State = System.Data.EntityState.Modified;
+                        db.Entry(item).State = System.Data.Entity.EntityState.Modified;
                     }
                     else
                     {
@@ -302,7 +302,7 @@ namespace PickemApp.SyncUtils
                 {
                     if (item.Id != 0)
                     {
-                        db.Entry(item).State = System.Data.EntityState.Modified;
+                        db.Entry(item).State = System.Data.Entity.EntityState.Modified;
                     }
                     else
                     {
