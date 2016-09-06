@@ -1,45 +1,15 @@
 ﻿html {
-    background-color: #e2e2e2;
     margin: 0;
     padding: 0;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-    background-color: #fff;
-    border-top: solid 10px #000;
-    color: #333;
-    font-size: .85em;
-    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
-    margin: 0;
-    padding: 0;
-}
+    /*font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;*/
 
-a {
-    color: #333;
-    outline: none;
-    padding-left: 3px;
-    padding-right: 3px;
-    text-decoration: underline;
-}
-
-    a:link, a:visited,
-    a:active, a:hover {
-        color: #333;
-    }
-
-    a:hover {
-        background-color: #c7d1d6;
-    }
-
-header, footer, hgroup,
-nav, section {
-    display: block;
-}
-
-mark {
-    background-color: #a6dbed;
-    padding-left: 5px;
-    padding-right: 5px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
 }
 
 .float-left {
@@ -58,76 +28,32 @@ mark {
     visibility: hidden;
 }
 
-h1, h2, h3,
-h4, h5, h6 {
-    color: #000;
-    margin-bottom: 15px;
-    padding-bottom: 0;
-}
-
-h1 {
-    font-size: 2em;
-}
-
-h2 {
-    font-size: 1.75em;
-}
-
-h3 {
-    font-size: 1.2em;
-}
-
-h4 {
-    font-size: 1.1em;
-}
-
-h5, h6 {
-    font-size: 1em;
-}
-
-    h5 a:link, h5 a:visited, h5 a:active {
-        padding: 0;
-        text-decoration: none;
-    }
-
-
 /* main layout
 ----------------------------------------------------------*/
-.content-wrapper {
-    margin: 0 auto;
-    max-width: 960px;
-}
-
-#week .content-wrapper { max-width: 1100px; }
-
-#body {
-    background-color: #efeeef;
-    clear: both;
-    padding-bottom: 35px;
-}
-
-    .main-content {
-        background: url("../Images/accent.png") no-repeat;
-        padding-left: 10px;
-        padding-top: 30px;
-        
+@media only screen and (min-width: 1200px) {
+    #week .container {
+        width: 1250px;
     }
-
-    .featured + .main-content {
-        background: url("../Images/heroAccent.png") no-repeat;
-    }
-
-header .content-wrapper {
-    padding-top: 20px; 
 }
 
-footer {
+body > .container {
+  padding: 60px 15px 0;
+}
+
+.footer {
     clear: both;
-    background-color: #e2e2e2;
-    font-size: .8em;
-    height: 100px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #f5f5f5;
 }
 
+.footer > .container {
+    padding-left: 10px;
+    padding-right: 10px;
+}
 
 /* site title
 ----------------------------------------------------------*/
@@ -182,31 +108,6 @@ footer {
 
 /* menu
 ----------------------------------------------------------*/
-ul#menu {
-    font-size: 1.3em;
-    font-weight: 600;
-    margin: 0 0 5px;
-    padding: 0;
-    text-align: right;
-}
-
-    ul#menu li {
-        display: inline;
-        list-style: none;
-        padding-left: 15px;
-    }
-
-        ul#menu li a {
-            background: none;
-            color: #999;
-            text-decoration: none;
-        }
-
-        ul#menu li a:hover {
-            color: #333;
-            text-decoration: none;
-        }
-
 
 #week-menu { margin-top: 5px; }
 #week-menu ul {
@@ -215,16 +116,24 @@ ul#menu {
 }
 
     #week-menu ul li {
-        display: inline;
+        
         list-style: none;
         padding-left: 6px;
         margin-left: 5px;
-        border-left: 1px solid;
+        
     }
     
     #week-menu ul li.current a { font-weight: bold; text-decoration: none; }
 
+#week-menu .nav-header {
+    display: inline-block;
+    vertical-align: bottom;
+    margin: 10px 0;
+}
 
+#week .nav-pills {
+    margin-bottom: 20px;
+}
 
 /* page elements
 ----------------------------------------------------------*/
@@ -324,27 +233,6 @@ ol.round {
             background: url("../Images/orderedList9.png") no-repeat;
         }
 
-/* content */
-article {
-    float: left;
-    width: 70%;
-}
-
-aside {
-    float: right;
-    width: 25%;
-}
-
-    aside ul {
-        list-style: none;
-        padding: 0;
-    }
-
-        aside ul li {
-            background: url("../Images/bullet.png") no-repeat 0 50%;
-            padding: 2px 0 2px 20px;
-        }
-
 .label {
     font-weight: 700;
 }
@@ -415,88 +303,6 @@ aside {
     margin: 5px 0 0 10px;
 }
 
-/* forms */
-fieldset {
-    border: none;
-    margin: 0;
-    padding: 0;
-}
-
-    fieldset legend {
-        display: none;
-    }
-
-    fieldset ol {
-        padding: 0;
-        list-style: none;
-    }
-
-        fieldset ol li {
-            padding-bottom: 5px;
-        }
-
-    fieldset.pick {
-        margin: 10px;
-        padding: 3px;
-        border: 1px solid #ccc;
-    }
-    
-label {
-    display: block;
-    font-size: 1.2em;
-    font-weight: 600;
-}
-
-label.checkbox {
-    display: inline;
-}
-
-input, textarea {
-    border: 1px solid #e2e2e2;
-    background: #fff;
-    color: #333;
-    font-size: 1.2em;
-    margin: 5px 0 6px 0;
-    padding: 5px;
-    width: 300px;
-}
-
-textarea {
-    font-family: inherit;
-    width: 500px;
-}
-
-    input:focus, textarea:focus {
-        border: 1px solid #7ac0da;
-    }
-
-    input[type="checkbox"], input[type="radio"] {
-        background: transparent;
-        border: inherit;
-        width: auto;
-    }
-
-    input[type="submit"],
-    input[type="button"],
-    button {
-        background-color: #d3dce0;
-        border: 1px solid #787878;
-        cursor: pointer;
-        font-size: 1.2em;
-        font-weight: 600;
-        padding: 7px;
-        margin-right: 8px;
-        width: auto;
-    }
-
-    td input[type="submit"],
-    td input[type="button"],
-    td button {
-        font-size: 1em;
-        padding: 4px;
-        margin-right: 4px;
-    }
-
 /* info and errors */
 .message-info {
     border: 1px solid;
@@ -554,36 +360,6 @@ input[type="checkbox"].input-validation-error {
 
 /* tables
 ----------------------------------------------------------*/
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-    margin-top: 0.75em;
-    border: 0 none;
-}
-
-th {
-    font-size: 1.2em;
-    text-align: left;
-    border: none 0px;
-    padding-left: 0;
-}
-
-    th a {
-        display: block;
-        position: relative;
-    }
-
-    th a:link, th a:visited, th a:active, th a:hover {
-        color: #333;
-        font-weight: 600;
-        text-decoration: none;
-        padding: 0;
-    }
-
-    th a:hover {
-        color: #000;
-    }
-
     th.asc a, th.desc a {
         margin-right: .75em;
     }
@@ -604,18 +380,6 @@ th {
         content: '▼';
     }
 
-th[scope=row] {
-    font-size: inherit;
-}
-
-    th[scope=row] a {
-        text-decoration: underline;
-    }
-
-td {
-    padding: 0.25em 1.75em 0.25em 0em;
-    border: 0 none;
-}
 
 td.number {
     text-align: right;
@@ -627,7 +391,7 @@ tr.pager td {
 
 
 table.standings {
-
+    border: none;
 }
     table.standings td  {
         white-space: nowrap;
@@ -638,6 +402,7 @@ table.standings {
     table.standings  th[scope=row] {
         padding: 0.25em 0.5em 0.25em 0.5em;
         border-bottom: 1px solid;
+        border-top: none !important;
     }
     
     table.standings > tbody > tr > td:nth-of-type(2n+2) {
@@ -732,22 +497,6 @@ table .correct {
             color: #333;
         }
 
-    /* menu */
-    nav {
-        margin-bottom: 5px;
-    }
-
-    ul#menu {
-        margin: 0;
-        padding: 0;
-        text-align: center;
-    }
-
-        ul#menu li {
-            margin: 0;
-            padding: 0;
-        }
-
 
     /* main layout
     ----------------------------------------------------------*/
@@ -765,11 +514,6 @@ table .correct {
         padding: 10px;
     }
 
-    /* page content */
-    article, aside {
-        float: none;
-        width: 100%;
-    }
 
     /* ordered list */
     ol.round {
@@ -809,11 +553,6 @@ table .correct {
             font-weight: 600;
         }
 
-    /* forms */
-    input {
-        width: 90%;
-    }
-
     /* login page */
     #loginForm {
         border-right: none;
@@ -832,27 +571,9 @@ table .correct {
         width: auto;
     }
 
-
-    /* footer
-    ----------------------------------------------------------*/
-    footer .float-left,
-    footer .float-right {
-        float: none;
-    }
-
-    footer {
-        text-align: center;
-        height: auto;
-        padding: 10px 0;
-    }
-
-        footer p {
-            margin: 0;
-        }
-
     table.standings tr.games,
     table.standings td:nth-of-type(n+2) {
-        display: none;
+        /*display: none;*/
     } /* hide on mobile */
     
     div.player { display: block; } /* show on mobile */
