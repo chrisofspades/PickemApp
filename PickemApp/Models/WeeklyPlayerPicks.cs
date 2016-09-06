@@ -3,90 +3,60 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+using Dapper;
+
 namespace PickemApp.Models
 {
     //Being lazy and using this class for the weekly leaders on the home page, plus the player picks for each week.
     public class WeeklyPlayerPicks
     {
+        public int Id { get; set; }
         public int WeekNumber { get; set; }
         public int Year { get; set; }
-        public Player Player { get; set; }
         public int PlayerId { get; set; }
         public string PlayerName { get; set; }
         public int CorrectPicks { get; set; }
         public double TieBreaker { get; set; }
-        public List<Pick> Picks { get; set; }
+
+        public virtual Player Player { get; set; }
+        public virtual List<Pick> Picks { get; set; }
 
         public static List<WeeklyPlayerPicks> GetWeeklyLeaders(int week, int year, bool completed = false)
         {
+            var lookup = new Dictionary<int, WeeklyPlayerPicks>();
+
             using (PickemDBContext db = new PickemDBContext())
+            using (var conn = db.Database.Connection)
             {
-                var leaders = SequenceByExample(new { PlayerId = (int?)0, CorrectPicks = 0});
-                if (!completed)
+                string sql = @"select wpp.Id, wpp.WeekNumber, wpp.Year, wpp.PlayerId, wpp.PlayerName, wpp.CorrectPicks, wpp.TieBreaker
+                                , pl.*, p.*, g.*
+                                from fnWeeklyPlayerPicks(@year, @week, @completed) wpp
+                                inner join Players pl on wpp.PlayerId = pl.Id
+                                inner join Games g on g.Week = wpp.WeekNumber and g.Year = wpp.Year 
+                                inner join Picks p on p.PlayerId = wpp.PlayerId and p.GameId = g.Id 
+                                order by wpp.Rank";
+                conn.Query<WeeklyPlayerPicks, Player, Pick, Game, WeeklyPlayerPicks>(sql, (wpp, pl, p, g) =>
                 {
-                    leaders = (from g in db.Games.Where(p => p.Week == week && p.Year == year)
-                                   join p in db.Picks on g.Id equals p.GameId into j1
-                                   from j2 in j1.DefaultIfEmpty()
-                                   group j2 by new { g.Week, g.Year, j2.PlayerId } into grp
-                                   orderby grp.Count(t => t.PickResult == "W") descending
-                                   select new
-                                   {
-                                       PlayerId = (int?)grp.Key.PlayerId,
-                                       CorrectPicks = grp.Count(t => t.PickResult == "W")
-                                   }
-                   );
-                }
-                else
-                {
-                    leaders = (from g in db.Games.Where(p => p.Week == week && p.Year == year)
-                                   join p in db.Picks on g.Id equals p.GameId into j1
-                                   from j2 in j1.DefaultIfEmpty()
-                                   group j2 by new { g.Week, g.Year, j2.PlayerId } into grp
-                                   orderby grp.Count(t => t.PickResult == "W") descending
-                                   select new
-                                   {
-                                       PlayerId = (int?)grp.Key.PlayerId,
-                                       CorrectPicks = grp.Count(t => t.PickResult == "W" && t.Game.Quarter.StartsWith("F"))
-                                   }
-                                       );
-                }
-
-
-                List<WeeklyPlayerPicks> listLeaders = new List<WeeklyPlayerPicks>();
-                foreach (var pp in leaders)
-                {
-                    if (pp.PlayerId != null)
+                    WeeklyPlayerPicks weeklyPlayerPick;
+                    if (!lookup.TryGetValue(wpp.Id, out weeklyPlayerPick))
                     {
-                        WeeklyPlayerPicks wpp = new WeeklyPlayerPicks()
-                        {
-                            WeekNumber = week,
-                            Year = year,
-                            Player = db.Players.Find(pp.PlayerId),
-                            CorrectPicks = pp.CorrectPicks,
-                            Picks = db.Picks.Where(q => q.PlayerId == pp.PlayerId && q.Game.Week == week && q.Game.Year == year).ToList()
-                        };
-
-                        var tieBreakerPick = wpp.Picks.FirstOrDefault(p => p.TotalPoints > 0);
-                        if (tieBreakerPick != null)
-                        {
-                            wpp.TieBreaker = Math.Abs(tieBreakerPick.TotalPoints - (tieBreakerPick.Game.HomeTeamScore + tieBreakerPick.Game.VisitorTeamScore));
-                        }
-
-                        //Do something with the picks here so the view doesn't throw System.ObjectDisposedException
-                        foreach (var pick in wpp.Picks)
-                        {
-                            pick.Game.HomeTeam = pick.Game.HomeTeam;
-                        }
-
-                        listLeaders.Add(wpp);
-
+                        wpp.Player = pl;
+                        lookup.Add(wpp.Id, weeklyPlayerPick = wpp);
                     }
-                }
-                return listLeaders.OrderByDescending(o => o.CorrectPicks).ThenBy(o => o.TieBreaker).ToList();
+                    if (weeklyPlayerPick.Picks == null)
+                    {
+                        weeklyPlayerPick.Picks = new List<Pick>();
+                    }
+                    p.Game = g;
+                    weeklyPlayerPick.Picks.Add(p);
+
+                    return weeklyPlayerPick;
+                },
+                param: new { year = year, week = week, completed = completed },
+                splitOn: "Id").AsQueryable();
             }
+
+            return lookup.Values.ToList();
         }
-
-        static IEnumerable<T> SequenceByExample<T>(T t) { return null; }
-
     }
 }
