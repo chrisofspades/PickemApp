@@ -217,6 +217,7 @@
     <Compile Include="Models\vwWeeklyPlayerPicks.cs" />
     <Compile Include="Models\WeeklyPlayerPicks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\Week.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\datafiles\2012Week08Picks.html" />
@@ -348,7 +349,9 @@
     <Content Include="Views\Player\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Player\Details.cshtml" />
@@ -413,9 +416,6 @@
     <Content Include="Views\Pick\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Week\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Standings\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -442,6 +442,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Sync\Picks.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Week\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

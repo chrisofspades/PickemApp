@@ -1,11 +1,13 @@
-﻿@{
+﻿@model IEnumerable<PickemApp.Models.WeeklyPlayerPicks>
+
+@{
     ViewBag.Title = "Standings";
 }
 
 <h2>@ViewBag.Year Overall Standings</h2>
 
 <table class="standings">
-@foreach (var pp in ViewBag.PlayerPicks)
+@foreach (var pp in Model)
 {
     <tr>
         <th scope="row">@pp.PlayerName</th>

@@ -34,10 +34,9 @@ namespace PickemApp.Controllers
                           CorrectPicks = g.Sum(x => x.CorrectPicks)
                       };
 
-            ViewBag.PlayerPicks = wpp.ToList();
             ViewBag.Year = year;
 
-            return View();
+            return View(wpp.ToList());
         }
 
         protected override void Dispose(bool disposing)

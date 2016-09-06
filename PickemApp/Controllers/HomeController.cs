@@ -25,18 +25,16 @@ namespace PickemApp.Controllers
 
             //get all of the weeks
             var weeks = (from v in db.vwWeeklyPlayerPicks
-                     where v.Year == year && v.Rank == 1
-                     orderby v.Week
-                     select new WeeklyPlayerPicks
-                     {
-                         WeekNumber = v.Week,
-                         Year = v.Year,
-                         Player = v.Player
-                     }).ToList();
+                         where v.Year == year && v.Rank == 1
+                         orderby v.Week
+                         select new WeeklyPlayerPicks
+                         {
+                             WeekNumber = v.Week,
+                             Year = v.Year,
+                             Player = v.Player
+                         }).ToList();
 
-            ViewBag.Weeks = weeks;
-
-            return View();
+            return View(weeks);
         }
 
         public ActionResult About()

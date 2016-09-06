@@ -1,9 +1,11 @@
-﻿@{
+﻿@model IEnumerable<PickemApp.Models.WeeklyPlayerPicks>
+
+@{
     ViewBag.Title = "Weekly Winners";
 }
 
 <table class="standings">
-@foreach (var week in ViewBag.Weeks)
+@foreach (var week in Model)
 {
     <tr>
         <th scope="row">@Html.ActionLink((string)string.Format("Week {0}", week.WeekNumber), "Index", "Week", new { week = @week.WeekNumber, year = @week.Year }, null)</th>

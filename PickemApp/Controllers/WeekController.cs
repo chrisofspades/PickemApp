@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using PickemApp.Models;
 using PickemApp.SyncUtils;
+using PickemApp.ViewModels;
 
 namespace PickemApp.Controllers
 {
@@ -18,12 +19,14 @@ namespace PickemApp.Controllers
             //2014-09-06: using CloudScheduler now so I can stop doing this!
             //NflSync.UpdateGames("http://www.nfl.com/liveupdate/scorestrip/ss.xml");
 
-            ViewBag.Week = week;
+            var vm = new WeekIndex();
+
+            vm.CurrentWeek = new Week(week, year);
 
             //get all of the weeks
-            ViewBag.Weeks = (from g in db.Games
+            vm.Weeks = (from g in db.Games
                              where g.Year == year
-                             select new WeeklyPlayerPicks
+                             select new Week
                              {
                                  WeekNumber = g.Week,
                                  Year = g.Year
@@ -32,10 +35,10 @@ namespace PickemApp.Controllers
             var listLeaders = WeeklyPlayerPicks.GetWeeklyLeaders(week, year, completed);
             var games = db.Games.Where(q => q.Week == week && q.Year == year).ToList();
             
-            ViewBag.Leaders = listLeaders.ToList();
-            ViewBag.Games = games.OrderBy(o => o.Eid.Substring(0, 8)).ThenBy(o => o.Time.PadLeft(5, '0')).ThenBy(o => o.Gsis);
+            vm.Leaders = listLeaders.ToList();
+            vm.Games = games.OrderBy(o => o.Eid.Substring(0, 8)).ThenBy(o => o.Time.PadLeft(5, '0')).ThenBy(o => o.Gsis).ToList();
 
-            return View(listLeaders.ToList());
+            return View(vm);
         }
 
         protected override void Dispose(bool disposing)
