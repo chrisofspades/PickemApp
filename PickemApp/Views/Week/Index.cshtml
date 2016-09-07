@@ -14,7 +14,7 @@
     </ul>
 </nav>
 
-<h2>Week @Model.CurrentWeek.WeekNumber</h2>
+<h2>@Model.CurrentWeek.Year Week @Model.CurrentWeek.WeekNumber</h2>
 
 <ul class="nav nav-pills">
     <li role="presentation" class="@(Request.QueryString["completed"].AsBool() != true ? "active" : "")">@Html.ActionLink("Live Scores", "Index", "Week", new { week = Request.QueryString["week"], year = Request.QueryString["year"], completed = false }, new { @class = Request.QueryString["completed"].AsBool() != true ? "active" : "" })</li>
@@ -24,7 +24,8 @@
 <div class="table-responsive">
     <table class="table table-condensed standings">
         <tr class="games">
-            <td colspan="2"></td>
+            <th scope="row"></th>
+            <td class="number"></td>
             @foreach (PickemApp.Models.Game g in Model.Games)
             {
                 <td>
@@ -83,4 +84,25 @@
     }
     </ul>
 </div>
+}
+
+@section scripts
+{
+    @* Started to figure out how to freeze the header and first column of the table. Not quite working
+    <script type="text/javascript">
+        var $tableStandings = $("table.standings");
+        var $headerRow = $("<table class='table table-condensed standings'>").append($tableStandings.find("tr.games").clone());
+
+
+        $tableStandings.find("tr.games").children().each(function (i, e) {
+            $headerRow.find("tr.games").children().eq(i).outerWidth($(e).outerWidth());
+        });
+
+        var $headerRowContainer = $("<div>")
+                                    .css({ "position": "absolute", "top": 0, "left": 0 })
+                                    .append($headerRow);
+
+        $(".table-responsive").append($headerRowContainer);
+    </script>
+    *@
 }

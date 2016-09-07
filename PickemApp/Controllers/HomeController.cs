@@ -23,6 +23,8 @@ namespace PickemApp.Controllers
 
             int year = ConfigurationManager.AppSettings["currentYear"] != null ? Convert.ToInt32(ConfigurationManager.AppSettings["currentYear"]) : DateTime.Today.Year;
 
+            ViewBag.Year = year;
+
             //get all of the weeks
             var weeks = (from v in db.vwWeeklyPlayerPicks
                          where v.Year == year && v.Rank == 1

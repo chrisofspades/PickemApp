@@ -27,7 +27,7 @@ namespace PickemApp
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                        "~/Content/bootstrap.css",
+                        "~/Content/bootswatch/cerulean/bootstrap.css",
                         "~/Content/site.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(

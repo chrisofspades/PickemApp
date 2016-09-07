@@ -51,8 +51,7 @@ body > .container {
 }
 
 .footer > .container {
-    padding-left: 10px;
-    padding-right: 10px;
+    padding: 10px;
 }
 
 /* site title
@@ -389,7 +388,6 @@ tr.pager td {
     padding: 0 0.25em 0 0;
 }
 
-
 table.standings {
     border: none;
 }
@@ -418,7 +416,8 @@ table.standings {
             padding: 0.2em 0.4em 0 0;
             text-align: left;
         }
-    
+
+
 .picked {
     font-weight: bold;
 }
