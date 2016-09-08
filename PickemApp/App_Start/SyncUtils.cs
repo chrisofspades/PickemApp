@@ -85,7 +85,7 @@ namespace PickemApp.SyncUtils
             using (PickemDBContext db = new PickemDBContext())
             {
                 var picks = (from p in db.Picks
-                             join g in db.Games.Where(q => q.Week == week && q.Year == year) on p.GameId equals g.Id
+                             join g in db.Games.Where(q => q.Week == week && q.Year == year && q.GameType == "REG") on p.GameId equals g.Id
                              select p).ToList<Pick>();
 
                 foreach (Pick p in picks)
@@ -167,7 +167,7 @@ namespace PickemApp.SyncUtils
 
                         // Find the game record
                         Game game = (from g in db.Games
-                                     where g.Week == week && g.Year == year && g.HomeTeam == homeTeam && g.VisitorTeam == visitorTeam
+                                     where g.Week == week && g.Year == year && g.GameType == "REG" && g.HomeTeam == homeTeam && g.VisitorTeam == visitorTeam
                                      select g).FirstOrDefault();
 
                         if (player != null && game != null && !string.IsNullOrEmpty(teamPicked))
@@ -273,7 +273,7 @@ namespace PickemApp.SyncUtils
 
                     //Find the game record
                     Game game = (from g in db.Games
-                                 where g.Week == week && g.Year == year && g.HomeTeam == homeTeam && g.VisitorTeam == visitorTeam
+                                 where g.Week == week && g.Year == year && g.GameType == "REG" && g.HomeTeam == homeTeam && g.VisitorTeam == visitorTeam
                                  select g).FirstOrDefault();
 
                     dictGames.Add(dt.Columns[i].ColumnName, game);

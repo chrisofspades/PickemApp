@@ -25,7 +25,7 @@ namespace PickemApp.Controllers
 
             //get all of the weeks
             vm.Weeks = (from g in db.Games
-                             where g.Year == year
+                             where g.Year == year && g.GameType == "REG"
                              select new Week
                              {
                                  WeekNumber = g.Week,
@@ -33,7 +33,7 @@ namespace PickemApp.Controllers
                              }).Distinct().ToList();
 
             var listLeaders = WeeklyPlayerPicks.GetWeeklyLeaders(week, year, completed);
-            var games = db.Games.Where(q => q.Week == week && q.Year == year).ToList();
+            var games = db.Games.Where(q => q.Week == week && q.Year == year && q.GameType == "REG").ToList();
             
             vm.Leaders = listLeaders.ToList();
             vm.Games = games.OrderBy(o => o.Eid.Substring(0, 8)).ThenBy(o => o.Time.PadLeft(5, '0')).ThenBy(o => o.Gsis).ToList();
