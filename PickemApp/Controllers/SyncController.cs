@@ -75,7 +75,8 @@ namespace PickemApp.Controllers
                 ViewBag.Message = "Picks updated.";
             }
 
-            return RedirectToAction("Index");
+            return View("Index");
+            //return RedirectToAction("Index");
         }
     }
 }

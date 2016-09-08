@@ -34,9 +34,9 @@ namespace PickemApp.SyncUtils
                     game.Time = g.Attribute("t").Value.ToString();
                     game.Quarter = g.Attribute("q").Value.ToString();
                     game.TimeRemaining = (g.Attribute("k") != null) ? g.Attribute("k").Value.ToString() : null;
-                    game.HomeTeam = g.Attribute("h").Value.ToString();
+                    game.HomeTeam = g.Attribute("h").Value.ToString().Replace("JAX", "JAC");
                     game.HomeTeamScore = Convert.ToInt32(g.Attribute("hs").Value.ToString());
-                    game.VisitorTeam = g.Attribute("v").Value.ToString();
+                    game.VisitorTeam = g.Attribute("v").Value.ToString().Replace("JAX", "JAC");
                     game.VisitorTeamScore = Convert.ToInt32(g.Attribute("vs").Value.ToString());
                     game.GameType = g.Attribute("gt").Value.ToString();
 
@@ -210,25 +210,55 @@ namespace PickemApp.SyncUtils
 
         public static void UpdatePicksXls(string xlsfile)
         {
-            xlsfile = HttpContext.Current.Server.MapPath(VirtualPathUtility.ToAbsolute("~/Content/datafiles/" + xlsfile));
-            DataSet ds = ImportExcelXLS(xlsfile, false);
-
-            DataTable dt = ds.Tables[ds.Tables.Count - 1];
-
-            //Year and Week data will be in the first row, column F3, formatted "YYYY / WEEK #"
-            string[] weekData = dt.Rows[0]["F3"].ToString().Split('/');
-
-            int week = 1,
-                year = 2012;
-
-            if (weekData.Length > 0)
-            {
-                year = Convert.ToInt32(weekData[0].Trim());
-                week = Convert.ToInt32(weekData[1].ToUpper().Replace("WEEK", "").Trim());
-            }
-
             using (PickemDBContext db = new PickemDBContext())
             {
+                //Get the year from filename (YYYY_NFL_Weeks.xls)
+                int year;
+
+                if (!int.TryParse(xlsfile.Substring(0, 4), out year))
+                {
+                    year = 0;
+                }
+
+                int week = 1;
+
+                week = db.Games.Where(g => g.Year == year).Select(g => g.Week).Max();
+
+                HttpContext.Current.Response.Write(string.Format("{0} {1}", year, week));
+
+                xlsfile = HttpContext.Current.Server.MapPath(VirtualPathUtility.ToAbsolute("~/Content/datafiles/" + xlsfile));
+                DataSet ds = ImportExcelXLS(xlsfile, false);
+
+                DataTable dt;
+                if (week <= ds.Tables.Count)
+                {
+                    dt = ds.Tables[week - 1];
+                }
+                else
+                {
+                    dt = ds.Tables[ds.Tables.Count - 1];
+                }
+
+
+                //Year and Week data will be in the first row, column F3, formatted "YYYY / WEEK #"
+                string[] weekData = dt.Rows[0]["F3"].ToString().Split('/');
+
+                if (weekData.Length == 2)
+                {
+                    if (year < 0)
+                    {
+                        year = Convert.ToInt32(weekData[0].Trim());
+                    }
+                    week = Convert.ToInt32(weekData[1].ToUpper().Replace("WEEK", "").Trim());
+                }
+                else if (weekData.Length == 1)
+                {
+                    week = Convert.ToInt32(weekData[0].ToUpper().Replace("WEEK", "").Trim());
+                }
+
+                HttpContext.Current.Response.Write(string.Format("{0} {1}", year, week));
+
+
                 //Create a dictionary of games, where the key is the column name
                 //Games will start in column 2, last column is for scores
                 int gameColIndexLower = 2,
