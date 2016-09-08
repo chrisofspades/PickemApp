@@ -328,6 +328,18 @@ ol.round {
     color: #e80c4d;
 }
 
+.gold {
+    color: gold;
+}
+
+.silver {
+    color: silver;
+}
+
+.bronze {
+    color: #cd7f32;
+}
+
 /* styles for validation helpers */
 .field-validation-error {
     color: #e80c4d;
@@ -356,6 +368,31 @@ input[type="checkbox"].input-validation-error {
     display: none;
 }
 
+
+/* lists
+----------------------------------------------------------*/
+#history .list-group .list-group-item {
+    border-width: 1px 0;
+    padding: 5px;
+}
+
+#history .list-group .list-group-item-heading {
+    display: inline-block;
+    width: 15%;
+    margin: 0 5% 0 0;
+}
+
+#history .list-group .list-group-item-text {
+    display: inline-block;
+    width: 60%;
+    margin: 0 5%;
+}
+
+#history .list-group .list-group-item-text li {
+    display: inline-block;
+    width: 22%;
+    margin: 0 5%;
+}
 
 /* tables
 ----------------------------------------------------------*/

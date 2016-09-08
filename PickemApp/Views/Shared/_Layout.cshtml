@@ -26,6 +26,7 @@
                     <ul id="menu" class="nav navbar-nav">
                         <li class="@(ViewContext.RouteData.Values["Controller"].ToString().ToLower() == "home" ? "active" : "")">@Html.ActionLink("Winners", "Index", "Home")</li>
                         <li class="@(ViewContext.RouteData.Values["Controller"].ToString().ToLower() == "standings" ? "active" : "")">@Html.ActionLink("Standings", "Index", "Standings")</li>
+                        <li class="@(ViewContext.RouteData.Values["Controller"].ToString().ToLower() == "history" ? "active" : "")">@Html.ActionLink("History", "Index", "History")</li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>

@@ -1,0 +1,21 @@
+﻿@model PickemApp.ViewModels.HistoryIndex
+
+@{
+    ViewBag.Title = "History";
+}
+
+<h2>League History</h2>
+
+<ul class="list-group">
+    @foreach (var season in Model.Seasons)
+    {
+        <li class="list-group-item clearfix">
+            <h3 class="list-group-item-heading"><a href="@Url.Action("Index", "Standings", new { year = season.Year})">@season.Year</a></h3>
+            <ol class="list-group-item-text fa-ul">
+                <li><i class="fa-li fa fa-trophy fa-lg gold"></i> @season.First.Name</li>
+                <li><i class="fa-li fa fa-trophy fa-lg silver"></i> @season.Second.Name</li>
+                <li><i class="fa-li fa fa-trophy fa-lg bronze"></i> @season.Third.Name</li>
+            </ol>
+        </li>
+    }
+</ul>
