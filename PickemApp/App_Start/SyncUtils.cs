@@ -222,7 +222,7 @@ namespace PickemApp.SyncUtils
 
                 int week = 1;
 
-                week = db.Games.Where(g => g.Year == year).Select(g => g.Week).Max();
+                week = db.Games.Where(g => g.Year == year && g.GameType == "REG").Select(g => g.Week).Max();
 
                 HttpContext.Current.Response.Write(string.Format("{0} {1}", year, week));
 
