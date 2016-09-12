@@ -28,7 +28,7 @@ namespace PickemApp
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                         "~/Content/bootswatch/cerulean/bootstrap.css",
-                        "~/Content/font-awesome.css",
+                        "~/Content/font-awesome-trophy.css",
                         "~/Content/site.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
