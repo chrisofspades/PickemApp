@@ -49,7 +49,7 @@ namespace PickemApp.Controllers
                                 ORDER BY pt.Season DESC
                                 ";
 
-                var seasons = conn.Query<Season, Player, Player, Player, Season>(query, (s, p1, p2, p3) =>
+                var seasons = conn.Query<PickemApp.ViewModels.Season, Player, Player, Player, PickemApp.ViewModels.Season>(query, (s, p1, p2, p3) =>
                 {
                     s.First = p1;
                     s.Second = p2;

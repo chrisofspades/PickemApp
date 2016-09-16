@@ -38,7 +38,7 @@ namespace PickemApp.Filters
                         }
                     }
 
-                    WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+                    WebSecurity.InitializeDatabaseConnection("DefaultConnection", "Players", "Id", "Username", autoCreateTables: true);
                 }
                 catch (Exception ex)
                 {

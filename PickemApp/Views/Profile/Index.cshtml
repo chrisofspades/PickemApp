@@ -1,0 +1,40 @@
+﻿@model PickemApp.ViewModels.ProfileEdit
+
+@{
+    ViewBag.Title = "Edit Profile";
+}
+
+<h1>@Model.Username</h1>
+
+@using (Html.BeginForm("Edit", "Profile"))
+{
+    <fieldset>
+        <legend>Profile</legend>
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(false, "", new { @class = "alert alert-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(f => f.Name, new { @class = "control-label" })
+            @Html.EditorFor(f => f.Name, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(f => f.Username, new { @class = "control-label" })
+            @Html.EditorFor(f => f.Username, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(f => f.Email, new { @class = "control-label" })
+            @Html.EditorFor(f => f.Email, new { htmlAttributes = new { @class = "form-control", type = "email" } })
+        </div>
+
+        <input type="submit" value="Update Profile" class="btn btn-primary" />
+    </fieldset>
+}
+
+@Html.Partial("_ChangePasswordPartial", new PickemApp.ViewModels.ProfileChangePassword())
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

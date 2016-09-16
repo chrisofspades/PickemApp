@@ -341,7 +341,7 @@ ol.round {
 }
 
 /* styles for validation helpers */
-.field-validation-error {
+/*.field-validation-error {
     color: #e80c4d;
     font-weight: bold;
 }
@@ -366,8 +366,29 @@ input[type="checkbox"].input-validation-error {
 
 .validation-summary-valid {
     display: none;
+}*/
+.validation-summary-valid {
+    display: none;
 }
 
+/* forms
+----------------------------------------------------------*/
+#body.container form {
+    margin-bottom: 20px;
+}
+
+
+.form-picks .radio .radio-inline {
+    width: 50px;
+}
+
+fieldset.tiebreaker {
+    margin-bottom: 20px;
+}
+
+input[id$="TotalPoints"] {
+    width: 50px !important;
+}
 
 /* lists
 ----------------------------------------------------------*/

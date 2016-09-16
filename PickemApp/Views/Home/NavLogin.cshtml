@@ -1,0 +1,37 @@
+﻿@model PickemApp.ViewModels.HomeNavLogin
+@{
+    Layout = null;
+}
+
+
+<ul class="nav navbar-nav navbar-right">
+    @if (Request.IsAuthenticated)
+    {
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Model.CurrentPlayer.Name <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="@Url.Action("Index", "Profile")">Profile</a></li>
+                <li><a href="@Url.Action("Index", "Picks")">Picks</a></li>
+                @if (User.IsInRole("admin"))
+                {
+                    <li role="separator" class="divider"></li>
+                    <li class="dropdown-header">Admin</li>
+                    <li><a href="@Url.Action("Picks", "Sync")">Upload Picks</a></li>
+                    <li><a href="#">Players</a></li>
+                }
+                <li role="separator" class="divider"></li>
+                <li>
+                    <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                    {
+                        @Html.AntiForgeryToken()
+                    }
+                </li>
+            </ul>
+        </li>
+    }
+    else
+    {
+        <li><a href="@Url.Action("Login", "Account")">Login</a></li>
+    }
+</ul>

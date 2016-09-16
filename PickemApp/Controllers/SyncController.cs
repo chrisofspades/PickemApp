@@ -32,6 +32,7 @@ namespace PickemApp.Controllers
             return View("Index");
         }
 
+        [Authorize(Roles = "admin")]
         public ActionResult Picks(string h = "")
         {
             if (!string.IsNullOrEmpty(h))

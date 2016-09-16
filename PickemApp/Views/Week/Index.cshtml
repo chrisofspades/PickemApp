@@ -14,7 +14,7 @@
     </ul>
 </nav>
 
-<h2>@Model.CurrentWeek.Year Week @Model.CurrentWeek.WeekNumber</h2>
+<h1>@Model.CurrentWeek.Year Week @Model.CurrentWeek.WeekNumber</h1>
 
 <ul class="nav nav-pills">
     <li role="presentation" class="@(Request.QueryString["completed"].AsBool() != true ? "active" : "")">@Html.ActionLink("Live Scores", "Index", "Week", new { week = Request.QueryString["week"], year = Request.QueryString["year"], completed = false }, new { @class = Request.QueryString["completed"].AsBool() != true ? "active" : "" })</li>
@@ -69,7 +69,7 @@
 @foreach (var pp in Model.Leaders.OrderBy(o => o.Player.Name))
 {
 <div class="player float-left">
-    <h3>@pp.Player.Name (@pp.CorrectPicks)</h3>
+    <h2>@pp.Player.Name (@pp.CorrectPicks)</h2>
     <ul>
     @foreach (var pick in pp.Picks)
     {

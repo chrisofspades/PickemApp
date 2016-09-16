@@ -1,0 +1,26 @@
+﻿@model PickemApp.ViewModels.PickRadio
+
+@{
+    object readOnlyAttr = null;
+    if (ViewBag.PastDeadline)
+    {
+        readOnlyAttr = new { @readonly = true, disabled = true };
+    }
+}
+
+<div class="radio">
+    <label class="radio-inline">
+        @Html.RadioButtonFor(f => f.TeamPicked, Model.VisitorTeam, readOnlyAttr)
+        @Model.VisitorTeam
+    </label>
+    <label class="radio-inline">
+        @Html.RadioButtonFor(f => f.TeamPicked, Model.HomeTeam, readOnlyAttr)
+        @Model.HomeTeam
+    </label>
+    @Html.HiddenFor(f => f.Id)
+    @Html.HiddenFor(f => f.PickResult)
+    @Html.HiddenFor(f => f.GameId)
+    @Html.HiddenFor(f => f.HomeTeam)
+    @Html.HiddenFor(f => f.VisitorTeam)
+    @Html.HiddenFor(f => f.WinningTeam)
+</div>

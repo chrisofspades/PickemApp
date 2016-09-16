@@ -29,6 +29,8 @@ namespace PickemApp.Models
 
         public DbSet<Pick> Picks { get; set; }
 
+        public DbSet<Season> Seasons { get; set; }
+
         public DbSet<vwWeeklyPlayerPicks> vwWeeklyPlayerPicks { get; set; }
 
     }

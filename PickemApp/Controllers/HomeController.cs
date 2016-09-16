@@ -1,13 +1,17 @@
 ﻿using System;
+using System.Configuration;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+
 using PickemApp.SyncUtils;
 using PickemApp.Models;
-using System.Configuration;
+using PickemApp.ViewModels;
+
+using WebMatrix.WebData;
 
 namespace PickemApp.Controllers
 {
@@ -39,6 +43,13 @@ namespace PickemApp.Controllers
             return View(weeks);
         }
 
+        [ChildActionOnly]
+        public ActionResult NavLogin()
+        {
+            var user = db.Players.Find(WebSecurity.CurrentUserId);
+            return View(new HomeNavLogin { CurrentPlayer = user });
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your app description page.";
@@ -52,6 +63,7 @@ namespace PickemApp.Controllers
 
             return View();
         }
+
 
         protected override void Dispose(bool disposing)
         {

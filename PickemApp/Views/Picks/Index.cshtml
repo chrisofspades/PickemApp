@@ -1,0 +1,67 @@
+﻿@using PickemApp.Extensions;
+
+@model PickemApp.ViewModels.PicksIndex
+
+@{
+    ViewBag.Title = "Picks";
+}
+
+<h1>@Model.CurrentPlayer.Name.MakePossessive() Picks</h1>
+
+<nav id="week-menu">
+    <span class="nav-header">Week</span>
+    <ul class="pagination">
+        @foreach (var week in Model.Weeks)
+        {
+            <li class="@(week.WeekNumber.ToString() == Request.QueryString["week"] ? "active" : "")">@Html.ActionLink((string)string.Format("{0}", week.WeekNumber), "Index", "Picks", new { week = @week.WeekNumber, year = @week.Year }, null)</li>
+        }
+    </ul>
+</nav>
+
+<h2>@Model.CurrentWeek.Year Week @Model.CurrentWeek.WeekNumber</h2>
+
+<p>Deadline: @ViewBag.Deadline</p>
+
+@using (Html.BeginForm())
+{
+
+    @Html.ValidationSummary()
+    @Html.AntiForgeryToken()
+    
+    var totalPicks = Model.Picks.Count() - 1;
+    var lastGame = Model.Picks.Last();
+
+    var htmlAttributes = new Dictionary<string, object>
+        ();
+    htmlAttributes.Add("Name", "Picks[" + totalPicks + "].TotalPoints");
+    htmlAttributes.Add("id", "Picks_" + totalPicks + "__TotalPoints");
+    htmlAttributes.Add("class", "form-control");
+    
+    if (ViewBag.PastDeadline)
+    {
+        htmlAttributes.Add("readonly", true);
+    }
+    
+    <fieldset class="form-picks">
+        @Html.EditorFor(f => f.Picks)
+    </fieldset>
+
+    <fieldset class="tiebreaker">
+        <legend>Tiebreaker</legend>
+        <p>Enter your predicted total points.</p>
+
+        <div class="form-inline">
+            <div class="form-group">
+                <label for="Picks_@(totalPicks)__TotalPoints" class="control-label">@lastGame.VisitorTeam @@ @lastGame.HomeTeam</label>
+                @Html.EditorFor(f => lastGame.TotalPoints, new { htmlAttributes = htmlAttributes })
+            </div>
+        </div>
+    </fieldset>
+
+    <input type="submit" value="Save Picks" class="btn btn-primary" @(ViewBag.PastDeadline ? "disabled" : "") />
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

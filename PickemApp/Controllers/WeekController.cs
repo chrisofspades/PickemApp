@@ -32,10 +32,13 @@ namespace PickemApp.Controllers
                                  Year = g.Year
                              }).Distinct().ToList();
 
-            var listLeaders = WeeklyPlayerPicks.GetWeeklyLeaders(week, year, completed);
+            if (DateTime.Now > PickemApp.Models.Season.GetDeadline(week, year))
+            {
+                var listLeaders = WeeklyPlayerPicks.GetWeeklyLeaders(week, year, completed);
+                vm.Leaders = listLeaders.ToList();
+            }
+
             var games = db.Games.Where(q => q.Week == week && q.Year == year && q.GameType == "REG").ToList();
-            
-            vm.Leaders = listLeaders.ToList();
             vm.Games = games.OrderBy(o => o.Eid.Substring(0, 8)).ThenBy(o => o.Time.PadLeft(5, '0')).ThenBy(o => o.Gsis).ToList();
 
             return View(vm);

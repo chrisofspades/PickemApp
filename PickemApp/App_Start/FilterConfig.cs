@@ -1,6 +1,8 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
+using PickemApp.Filters;
+
 namespace PickemApp
 {
     public class FilterConfig
@@ -8,6 +10,7 @@ namespace PickemApp
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+            filters.Add(new InitializeSimpleMembershipAttribute());
         }
     }
 }
