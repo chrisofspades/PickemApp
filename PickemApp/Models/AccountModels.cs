@@ -13,7 +13,7 @@ namespace PickemApp.Models
     public class UsersContext : DbContext
     {
         public UsersContext()
-            : base("DefaultConnection")
+            : base("PickemDBContext")
         {
         }
 
