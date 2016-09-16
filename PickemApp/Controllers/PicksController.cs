@@ -53,7 +53,7 @@ namespace PickemApp.Controllers
                 string sql = @"select p.Id, p.TeamPicked, p.TotalPoints, p.PickResult, g.Id as GameId, g.HomeTeam, g.VisitorTeam, g.WinningTeam
                             from Games g 
                             left outer join Picks p on g.Id = p.GameId and p.PlayerId = @playerId
-                            where g.Week = @week and g.Year = @year
+                            where g.Week = @week and g.Year = @year and g.GameType = 'REG'
                             order by left(g.Eid, 8), RIGHT('00000' + ISNULL(g.Time, ''), 5), g.Gsis";
 
                 vm.Picks = conn.Query<PickRadio>(sql,
