@@ -230,9 +230,10 @@ namespace PickemApp.SyncUtils
                 DataSet ds = ImportExcelXLS(xlsfile, false);
 
                 DataTable dt;
-                if (week <= ds.Tables.Count)
+                var tableNameLookup = string.Format("'WEEK {0}$'", week);
+                if (ds.Tables.Contains(tableNameLookup))
                 {
-                    dt = ds.Tables[week - 1];
+                    dt = ds.Tables[tableNameLookup];
                 }
                 else
                 {
