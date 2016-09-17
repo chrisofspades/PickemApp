@@ -32,7 +32,7 @@ namespace PickemApp.Controllers
             ViewBag.Deadline = PickemApp.Models.Season.GetDeadline(week.Value, year.Value);
             ViewBag.PastDeadline = (DateTime.Now >= PickemApp.Models.Season.GetDeadline(week.Value, year.Value));
 
-            var user = db.Players.Find(WebSecurity.CurrentUserId);
+            var user = Auth.User;
 
             var vm = new PicksIndex();
 
@@ -66,7 +66,7 @@ namespace PickemApp.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Index(int week, int year, PicksIndex form)
         {
-            var user = db.Players.Find(WebSecurity.CurrentUserId);
+            var user = Auth.User;
             form.CurrentPlayer = user;
             form.CurrentWeek = new Week(week, year);
 

@@ -187,6 +187,7 @@
     <Compile Include="App_Start\SyncUtils.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BulkPickEditorController.cs" />
     <Compile Include="Controllers\HistoryController.cs" />

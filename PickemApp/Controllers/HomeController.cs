@@ -46,7 +46,7 @@ namespace PickemApp.Controllers
         [ChildActionOnly]
         public ActionResult NavLogin()
         {
-            var user = db.Players.Find(WebSecurity.CurrentUserId);
+            var user = Auth.User;
             return View(new HomeNavLogin { CurrentPlayer = user });
         }
 

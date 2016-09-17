@@ -24,7 +24,7 @@ namespace PickemApp.Controllers
         
         public ActionResult Index()
         {
-            var user = db.Players.Find(WebSecurity.CurrentUserId);
+            var user = Auth.User;
             if (user == null)
             {
                 return HttpNotFound();
@@ -35,7 +35,7 @@ namespace PickemApp.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Edit(ProfileEdit form)
         {
-            var user = db.Players.Find(WebSecurity.CurrentUserId);
+            var user = Auth.User;
             if (user == null)
             {
                 return HttpNotFound();
@@ -57,7 +57,7 @@ namespace PickemApp.Controllers
 
         public ActionResult ChangePassword(ProfileChangePassword form)
         {
-            var user = db.Players.Find(WebSecurity.CurrentUserId);
+            var user = Auth.User;
             if (user == null)
             {
                 return HttpNotFound();
