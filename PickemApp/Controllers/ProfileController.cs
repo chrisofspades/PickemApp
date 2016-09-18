@@ -93,6 +93,7 @@ namespace PickemApp.Controllers
             return View("Index", new ProfileEdit { Name = user.Name, Email = user.Email, Username = user.Username });
         }
 
+        [AllowAnonymous]
         public ActionResult Stats(int id = 0)
         {
             Player user;
