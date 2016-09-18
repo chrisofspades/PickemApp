@@ -9,6 +9,7 @@ using PickemApp.Models;
 
 namespace PickemApp.Controllers
 {
+    [Authorize(Roles="admin")]
     public class PlayerController : Controller
     {
         private PickemDBContext db = new PickemDBContext();
