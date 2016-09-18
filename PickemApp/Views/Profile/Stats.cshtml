@@ -1,0 +1,62 @@
+﻿@using PickemApp.Extensions;
+
+@model PickemApp.ViewModels.ProfileStats
+
+@{
+    ViewBag.Title = "Stats";
+}
+
+<h2>@Model.Player.Name.MakePossessive() Stats</h2>
+
+<table class="table table-bordered stat-items">
+    @foreach (var item in Model.StatItems)
+    {
+        <tr class="stat-item">
+            <th scope="row">
+                <span class="stat-item-title">@item.Title</span>
+                <span class="stat-item-when">@item.YearAndWeek</span>
+            </th>
+            <td class="stat-item-value">@item.Value</td>
+        </tr>
+    }
+</table>
+
+<table class="table stats">
+    <thead>
+        <tr>
+            <th>Year</th>
+            <th>Correct Picks</th>
+            <th>Wrong Picks</th>
+            <th>Percentage</th>
+            <th>Average Picks Per Week</th>
+            <th>Most Correct Picks</th>
+            <th>Total Wins</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var season in Model.Summaries)
+        {
+            <tr>
+                <td>@season.Year</td>
+                <td>@season.CorrectPicks</td>
+                <td>@season.WrongPicks</td>
+                <td>@season.Percentage</td>
+                <td>@season.AveragePicksPerWeek</td>
+                <td>@season.MostPicks</td>
+                <td>@season.TotalWins</td>
+            </tr>
+        }
+
+    </tbody>
+    <tfoot>
+        <tr>
+            <td>Career</td>
+            <td>@Model.Summaries.Sum(s => s.CorrectPicks)</td>
+            <td>@Model.Summaries.Sum(s => s.WrongPicks)</td>
+            <td>@Math.Round(Model.Summaries.Average(s => s.Percentage), 3)</td>
+            <td>@Model.Summaries.Average(s => s.AveragePicksPerWeek)</td>
+            <td>@Model.Summaries.Max(s => s.MostPicks)</td>
+            <td>@Model.Summaries.Sum(s => s.TotalWins)</td>
+        </tr>
+    </tfoot>
+</table>

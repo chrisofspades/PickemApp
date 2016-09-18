@@ -2,10 +2,13 @@
 using System.Data;
 using System.Data.Entity;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebMatrix.WebData;
+
+using Dapper;
 
 using PickemApp.Filters;
 using PickemApp.Models;
@@ -88,6 +91,44 @@ namespace PickemApp.Controllers
             }
 
             return View("Index", new ProfileEdit { Name = user.Name, Email = user.Email, Username = user.Username });
+        }
+
+        public ActionResult Stats(int id = 0)
+        {
+            Player user;
+
+            if (id > 0)
+            {
+                user = db.Players.Find(id);
+            }
+            else
+            {
+                user = Auth.User;
+            }
+
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+
+            var vm = new ProfileStats();
+
+            vm.Player = user;
+
+            var sql = @"exec spGetPlayerStats @playerId";
+            int year = ConfigurationManager.AppSettings["currentYear"] != null ? Convert.ToInt32(ConfigurationManager.AppSettings["currentYear"]) : DateTime.Today.Year;
+
+            using (var multi = db.Database.Connection.QueryMultiple(sql, new { playerId = user.Id, year = year }))
+            {
+                var statItems = multi.Read<StatsItem>().ToList();
+                var seasonSummaries = multi.Read<StatsSeasonSummary>().ToList();
+
+                vm.StatItems = statItems;
+                vm.Summaries = seasonSummaries;
+            } 
+
+
+            return View(vm);
         }
 
         protected override void Dispose(bool disposing)

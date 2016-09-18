@@ -427,6 +427,7 @@
     <Content Include="Views\Profile\_ChangePasswordPartial.cshtml" />
     <Content Include="Views\Home\NavLogin.cshtml" />
     <Content Include="Views\Picks\Index.cshtml" />
+    <Content Include="Views\Profile\Stats.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Player\Index.cshtml" />

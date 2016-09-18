@@ -11,6 +11,7 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Model.CurrentPlayer.Name <span class="caret"></span></a>
             <ul class="dropdown-menu">
                 <li><a href="@Url.Action("Index", "Profile")">Profile</a></li>
+                <li><a href="@Url.Action("Stats", "Profile")">Stats</a></li>
                 <li><a href="@Url.Action("Index", "Picks")">Picks</a></li>
                 @if (User.IsInRole("admin"))
                 {

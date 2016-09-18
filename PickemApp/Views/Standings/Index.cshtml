@@ -10,7 +10,7 @@
 @foreach (var pp in Model)
 {
     <tr>
-        <th scope="row">@pp.PlayerName</th>
+        <th scope="row"><a href="@Url.RouteUrl("ProfileStats", new { id = pp.PlayerId })">@pp.PlayerName</a></th>
         <td>@pp.CorrectPicks</td>
     </tr>
 }

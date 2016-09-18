@@ -415,6 +415,48 @@ input[id$="TotalPoints"] {
     margin: 0 5%;
 }
 
+.stat-items {
+    margin-bottom: 20px;
+}
+
+@media only screen and (min-width: 768px) {
+    .stat-items {
+        max-width: 70%;
+        margin: 20px auto;
+    }
+}
+
+.stat-item {
+    padding: 10px 20px;
+}
+
+.stat-items th {
+    font-weight: normal;
+}
+
+.stat-item th[scope="row"] {
+    border-top: none;
+}
+
+.stat-item tr:last-child th[scope="row"] {
+    border-bottom: none;
+}
+
+.stat-items .stat-item-value {
+    text-align: right;
+    font-size: 3em;
+}
+
+.stat-item .stat-item-title {
+    font-size: 1.5em;
+}
+
+.stat-items .stat-item-title,
+.stat-items .stat-item-when {
+    display: block;
+}
+
+
 /* tables
 ----------------------------------------------------------*/
     th.asc a, th.desc a {
@@ -475,6 +517,13 @@ table.standings {
             text-align: left;
         }
 
+table.stats th, table.stats td {
+    text-align: right;
+}
+
+table.stats tfoot {
+    border-top: 2px solid;
+}
 
 .picked {
     font-weight: bold;
