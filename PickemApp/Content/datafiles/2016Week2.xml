@@ -1,21 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ss>
-  <gms w="2" y="2016" t="R" gd="1" bph="0">
-    <g eid="2016091500" gsis="56917" d="Thu" t="8:25" q="P" h="BUF" hnn="bills" hs="0" v="NYJ" vnn="jets" vs="0" rz="0" ga="" gt="REG" />
-    <g eid="2016091800" gsis="56918" d="Sun" t="1:00" q="P" h="CAR" hnn="panthers" hs="0" v="SF" vnn="49ers" vs="0" rz="0" ga="" gt="REG" />
-    <g eid="2016091801" gsis="56919" d="Sun" t="1:00" q="P" h="CLE" hnn="browns" hs="0" v="BAL" vnn="ravens" vs="0" rz="0" ga="" gt="REG" />
-    <g eid="2016091802" gsis="56920" d="Sun" t="1:00" q="P" h="DET" hnn="lions" hs="0" v="TEN" vnn="titans" vs="0" rz="0" ga="" gt="REG" />
-    <g eid="2016091803" gsis="56921" d="Sun" t="1:00" q="P" h="HOU" hnn="texans" hs="0" v="KC" vnn="chiefs" vs="0" rz="0" ga="" gt="REG" />
-    <g eid="2016091804" gsis="56922" d="Sun" t="1:00" q="P" h="NE" hnn="patriots" hs="0" v="MIA" vnn="dolphins" vs="0" rz="0" ga="" gt="REG" />
-    <g eid="2016091805" gsis="56923" d="Sun" t="1:00" q="P" h="NYG" hnn="giants" hs="0" v="NO" vnn="saints" vs="0" rz="0" ga="" gt="REG" />
-    <g eid="2016091806" gsis="56924" d="Sun" t="1:00" q="P" h="PIT" hnn="steelers" hs="0" v="CIN" vnn="bengals" vs="0" rz="0" ga="" gt="REG" />
-    <g eid="2016091807" gsis="56925" d="Sun" t="1:00" q="P" h="WAS" hnn="redskins" hs="0" v="DAL" vnn="cowboys" vs="0" rz="0" ga="" gt="REG" />
-    <g eid="2016091808" gsis="56926" d="Sun" t="4:05" q="P" h="ARI" hnn="cardinals" hs="0" v="TB" vnn="buccaneers" vs="0" rz="0" ga="" gt="REG" />
-    <g eid="2016091809" gsis="56927" d="Sun" t="4:05" q="P" h="LA" hnn="rams" hs="0" v="SEA" vnn="seahawks" vs="0" rz="0" ga="" gt="REG" />
-    <g eid="2016091810" gsis="56928" d="Sun" t="4:25" q="P" h="DEN" hnn="broncos" hs="0" v="IND" vnn="colts" vs="0" rz="0" ga="" gt="REG" />
-    <g eid="2016091811" gsis="56929" d="Sun" t="4:25" q="P" h="OAK" hnn="raiders" hs="0" v="ATL" vnn="falcons" vs="0" rz="0" ga="" gt="REG" />
-    <g eid="2016091812" gsis="56930" d="Sun" t="4:25" q="P" h="SD" hnn="chargers" hs="0" v="JAX" vnn="jaguars" vs="0" rz="0" ga="" gt="REG" />
-    <g eid="2016091813" gsis="56931" d="Sun" t="8:30" q="P" h="MIN" hnn="vikings" hs="0" v="GB" vnn="packers" vs="0" rz="0" ga="" gt="REG" />
+  <gms w="2" y="2016" t="R" gd="1" bph="148">
+    <g eid="2016091500" gsis="56917" d="Thu" t="8:25" q="F" h="BUF" hnn="bills" hs="31" v="NYJ" vnn="jets" vs="37" rz="0" ga="" gt="REG" />
+    <g eid="2016091800" gsis="56918" d="Sun" t="1:00" q="F" h="CAR" hnn="panthers" hs="46" v="SF" vnn="49ers" vs="27" rz="0" ga="" gt="REG" />
+    <g eid="2016091801" gsis="56919" d="Sun" t="1:00" q="F" h="CLE" hnn="browns" hs="20" v="BAL" vnn="ravens" vs="25" rz="0" ga="" gt="REG" />
+    <g eid="2016091802" gsis="56920" d="Sun" t="1:00" q="F" h="DET" hnn="lions" hs="15" v="TEN" vnn="titans" vs="16" rz="0" ga="" gt="REG" />
+    <g eid="2016091803" gsis="56921" d="Sun" t="1:00" q="F" h="HOU" hnn="texans" hs="19" v="KC" vnn="chiefs" vs="12" rz="0" ga="" gt="REG" />
+    <g eid="2016091804" gsis="56922" d="Sun" t="1:00" q="F" h="NE" hnn="patriots" hs="31" v="MIA" vnn="dolphins" vs="24" rz="0" ga="" gt="REG" />
+    <g eid="2016091805" gsis="56923" d="Sun" t="1:00" q="F" h="NYG" hnn="giants" hs="16" v="NO" vnn="saints" vs="13" rz="0" ga="" gt="REG" />
+    <g eid="2016091806" gsis="56924" d="Sun" t="1:00" q="F" h="PIT" hnn="steelers" hs="24" v="CIN" vnn="bengals" vs="16" rz="0" ga="" gt="REG" />
+    <g eid="2016091807" gsis="56925" d="Sun" t="1:00" q="F" h="WAS" hnn="redskins" hs="23" v="DAL" vnn="cowboys" vs="27" rz="0" ga="" gt="REG" />
+    <g eid="2016091808" gsis="56926" d="Sun" t="4:05" q="F" h="ARI" hnn="cardinals" hs="40" v="TB" vnn="buccaneers" vs="7" rz="0" ga="" gt="REG" />
+    <g eid="2016091809" gsis="56927" d="Sun" t="4:05" q="F" h="LA" hnn="rams" hs="9" v="SEA" vnn="seahawks" vs="3" rz="0" ga="" gt="REG" />
+    <g eid="2016091810" gsis="56928" d="Sun" t="4:25" q="F" h="DEN" hnn="broncos" hs="34" v="IND" vnn="colts" vs="20" rz="0" ga="" gt="REG" />
+    <g eid="2016091811" gsis="56929" d="Sun" t="4:25" q="F" h="OAK" hnn="raiders" hs="28" v="ATL" vnn="falcons" vs="35" rz="0" ga="" gt="REG" />
+    <g eid="2016091812" gsis="56930" d="Sun" t="4:25" q="F" h="SD" hnn="chargers" hs="38" v="JAX" vnn="jaguars" vs="14" rz="0" ga="" gt="REG" />
+    <g eid="2016091813" gsis="56931" d="Sun" t="8:30" q="F" h="MIN" hnn="vikings" hs="17" v="GB" vnn="packers" vs="14" rz="0" ga="" gt="REG" />
     <g eid="2016091900" gsis="56932" d="Mon" t="8:30" q="P" h="CHI" hnn="bears" hs="0" v="PHI" vnn="eagles" vs="0" rz="0" ga="" gt="REG" />
   </gms>
 </ss>
