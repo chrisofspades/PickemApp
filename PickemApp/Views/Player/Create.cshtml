@@ -1,34 +1,42 @@
 ﻿@model PickemApp.Models.Player
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create Player";
 }
 
-<h2>Create</h2>
+<h2>Create Player</h2>
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken();
+    
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name)
 
-    <fieldset>
-        <legend>Player</legend>
+        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Name)
+    </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Name)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Name)
-            @Html.ValidationMessageFor(model => model.Name)
-        </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Username)
 
-        <p>
-            <input type="submit" value="Create" />
-        </p>
-    </fieldset>
+        @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Username)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Email)
+
+        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Email)
+    </div>
+
+    <p>
+        <button type="submit" class="btn btn-primary">Create</button>
+        <a href="@Url.Action("Index")">or cancel</a>
+    </p>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
+using System.Text;
 using System.Transactions;
 using System.Web;
 using System.Web.Mvc;
@@ -8,8 +10,10 @@ using System.Web.Security;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
+
 using PickemApp.Filters;
 using PickemApp.Models;
+using PickemApp.ViewModels;
 
 namespace PickemApp.Controllers
 {
@@ -328,6 +332,103 @@ namespace PickemApp.Controllers
             return PartialView("_RemoveExternalLoginsPartial", externalLogins);
         }
 
+        [AllowAnonymous]
+        public ActionResult ForgotPassword()
+        {
+            return View(new AccountForgotPassword());
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ForgotPassword(AccountForgotPassword form)
+        {
+            if (ModelState.IsValid)
+            {
+                using (PickemDBContext db = new PickemDBContext())
+                {
+                    var user = db.Players.FirstOrDefault(p => p.Email == form.Email && p.Username.Length > 0);
+                    if (user == null)
+                    {
+                        ModelState.AddModelError("nouser", "An account does not exist for that email address.");
+                        return View(form);
+                    }
+
+                    try
+                    {
+                        if (!OAuthWebSecurity.HasLocalAccount(user.Id))
+                        {
+                            WebSecurity.CreateAccount(user.Username, "T3mpP@ssw0rd");
+                        }
+                        var token = WebSecurity.GeneratePasswordResetToken(user.Username);
+
+                        string resetLink = Request.Url.GetLeftPart(UriPartial.Authority) + "/account/resetpassword?token=" + token;
+
+                        StringBuilder sbEmail = new StringBuilder();
+
+                        sbEmail.AppendLine("Forgot your password? No problem!" + Environment.NewLine);
+                        sbEmail.AppendLine("Your username is: " + user.Username + Environment.NewLine);
+                        sbEmail.AppendLine("Reset your password by clicking the link below or copying and pasting it into your browser." + Environment.NewLine);
+                        sbEmail.AppendLine(resetLink + Environment.NewLine);
+                        sbEmail.AppendLine("(Heads up! This link expires in 24 hours. After that, you'll have to request a new one.)");
+
+                        var message = new MailMessage("test@test.com", user.Email, "Reset your password", sbEmail.ToString());
+                        message.IsBodyHtml = false;
+
+                        var smtp = new SmtpClient();
+                        smtp.Send(message);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        ModelState.AddModelError("mailerror", ex.Message);
+                        return View(form);
+                    }
+
+                    return RedirectToAction("ForgotPassword", new { message = ManageMessageId.ForgotPasswordSuccess });
+                }
+            }
+            return View(form);
+        }
+
+        [AllowAnonymous]
+        public ActionResult ResetPassword(string token, ManageMessageId? message)
+        {
+
+            return View(new AccountResetPassword { Token = token });
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ResetPassword(AccountResetPassword form)
+        {
+            if (ModelState.IsValid)
+            {
+                bool passwordReset = false;
+                try
+                {
+                    passwordReset = WebSecurity.ResetPassword(form.Token, form.NewPassword);
+                }
+                catch(Exception ex)
+                {
+                    ModelState.AddModelError(ex.ToString(), ex.Message);
+                    passwordReset = false;
+                }
+                
+                if (passwordReset)
+                {
+                    return RedirectToAction("ResetPassword", new { Message = ManageMessageId.ResetPasswordSuccess });
+                }
+                else
+                {
+                    ModelState.AddModelError("Token", "Invalid token or password.");
+                }
+            }
+
+            return View(form);
+        }
+
         #region Helpers
         private ActionResult RedirectToLocal(string returnUrl)
         {
@@ -346,6 +447,8 @@ namespace PickemApp.Controllers
             ChangePasswordSuccess,
             SetPasswordSuccess,
             RemoveLoginSuccess,
+            ForgotPasswordSuccess,
+            ResetPasswordSuccess
         }
 
         internal class ExternalLoginResult : ActionResult

@@ -8,7 +8,7 @@
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
-
+    @Html.AntiForgeryToken()
 
         @Html.HiddenFor(model => model.Id)
 
@@ -29,7 +29,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Email)
 
-            @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.Email)
         </div>
 

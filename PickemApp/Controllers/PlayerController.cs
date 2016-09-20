@@ -47,8 +47,25 @@ namespace PickemApp.Controllers
         // POST: /Player/Create
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(Player player)
         {
+            if (ModelState.IsValid)
+            {
+                if (db.Players.Any(p => p.Name == player.Name))
+                {
+                    ModelState.AddModelError("name", "That name already exists.");
+                }
+                if (db.Players.Any(p => p.Username == player.Username))
+                {
+                    ModelState.AddModelError("username", "That username already exists.");
+                }
+                if (db.Players.Any(p => p.Email == player.Email))
+                {
+                    ModelState.AddModelError("email", "That email already exists.");
+                }
+            }
+
             if (ModelState.IsValid)
             {
                 db.Players.Add(player);
@@ -76,8 +93,25 @@ namespace PickemApp.Controllers
         // POST: /Player/Edit/5
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(Player player)
         {
+            if (ModelState.IsValid) 
+            {
+                if (db.Players.Any(p => p.Name == player.Name && p.Id != player.Id))
+                {
+                    ModelState.AddModelError("name", "That name already exists.");
+                }
+                if (db.Players.Any(p => p.Username == player.Username && p.Id != player.Id))
+                {
+                    ModelState.AddModelError("username", "That username already exists.");
+                }
+                if (db.Players.Any(p => p.Email == player.Email && p.Id != player.Id))
+                {
+                    ModelState.AddModelError("email", "That email already exists.");
+                }
+            }
+
             if (ModelState.IsValid)
             {
                 db.Entry(player).State = EntityState.Modified;
