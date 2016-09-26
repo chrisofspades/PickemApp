@@ -13,6 +13,7 @@ using WebMatrix.WebData;
 
 using PickemApp.Filters;
 using PickemApp.Models;
+using PickemApp.Utility;
 using PickemApp.ViewModels;
 
 namespace PickemApp.Controllers
@@ -372,12 +373,8 @@ namespace PickemApp.Controllers
                         sbEmail.AppendLine(resetLink + Environment.NewLine);
                         sbEmail.AppendLine("(Heads up! This link expires in 24 hours. After that, you'll have to request a new one.)");
 
-                        var message = new MailMessage("test@test.com", user.Email, "Reset your password", sbEmail.ToString());
-                        message.IsBodyHtml = false;
-
-                        var smtp = new SmtpClient();
-                        smtp.Send(message);
-
+                        var mailgun = new Mailgun("postmaster@app4b763cf99cb24f32bb28548fe02668ff.mailgun.org", user.Email, "Reset your password", sbEmail.ToString());
+                        mailgun.Send();
                     }
                     catch (Exception ex)
                     {
