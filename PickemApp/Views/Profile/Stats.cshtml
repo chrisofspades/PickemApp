@@ -48,15 +48,18 @@
         }
 
     </tbody>
-    <tfoot>
-        <tr>
-            <td>Career</td>
-            <td>@Model.Summaries.Sum(s => s.CorrectPicks)</td>
-            <td>@Model.Summaries.Sum(s => s.WrongPicks)</td>
-            <td>@Math.Round(Model.Summaries.Average(s => s.Percentage), 3)</td>
-            <td>@Model.Summaries.Average(s => s.AveragePicksPerWeek)</td>
-            <td>@Model.Summaries.Max(s => s.MostPicks)</td>
-            <td>@Model.Summaries.Sum(s => s.TotalWins)</td>
-        </tr>
-    </tfoot>
+    @if (Model.Summaries.Count > 0) 
+    { 
+        <tfoot>
+            <tr>
+                <td>Career</td>
+                <td>@Model.Summaries.Sum(s => s.CorrectPicks)</td>
+                <td>@Model.Summaries.Sum(s => s.WrongPicks)</td>
+                <td>@Math.Round(Model.Summaries.Average(s => s.Percentage), 3)</td>
+                <td>@Model.Summaries.Average(s => s.AveragePicksPerWeek)</td>
+                <td>@Model.Summaries.Max(s => s.MostPicks)</td>
+                <td>@Model.Summaries.Sum(s => s.TotalWins)</td>
+            </tr>
+        </tfoot>
+    }
 </table>
