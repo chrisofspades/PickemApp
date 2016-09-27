@@ -55,6 +55,7 @@ namespace PickemApp.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Picks(HttpPostedFileBase file)
         {
 
