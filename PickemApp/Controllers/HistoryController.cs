@@ -36,7 +36,7 @@ namespace PickemApp.Controllers
 	                                group by playerid, playername, year
 	                                ) as o
 	                                where o.Place <= 3
-                                    and (select max(DATEADD(week, 17, DATEADD(day, (DATEPART(weekday, startdate)-1) * -1, startdate))) from Seasons) < GETDATE()
+                                    and (o.Season < @currentYear or (select max(DATEADD(week, 17, DATEADD(day, (DATEPART(weekday, startdate)-1) * -1, startdate))) from Seasons) < GETDATE())
                                 ) AS SourceTable
                                 PIVOT
                                 (
