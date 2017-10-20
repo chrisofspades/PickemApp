@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Xml;
@@ -9,6 +10,7 @@ using HtmlAgilityPack;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Data;
+using System.Data.Odbc;
 using System.Data.OleDb;
 
 namespace PickemApp.SyncUtils
@@ -348,7 +350,7 @@ namespace PickemApp.SyncUtils
         {
             string HDR = hasHeaders ? "Yes" : "No";
             string strConn;
-            if (FileName.Substring(FileName.LastIndexOf('.')).ToLower() == ".xlsx")
+            if (FileName.Substring(FileName.LastIndexOf('.')).ToLower() == ".xlsx" || !HttpContext.Current.Request.IsLocal)
                 strConn = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + FileName + ";Extended Properties=\"Excel 12.0;HDR=" + HDR + ";IMEX=0\"";
             else
                 strConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + FileName + ";Extended Properties=\"Excel 8.0;HDR=" + HDR + ";IMEX=1\"";
@@ -391,6 +393,7 @@ namespace PickemApp.SyncUtils
                     }
                 }
             }
+
             return output;
         }
     }
