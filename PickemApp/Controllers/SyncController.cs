@@ -69,6 +69,10 @@ namespace PickemApp.Controllers
                 {
                     PickSync.UpdatePicksXls(fileName);
                 }
+                else if (fileName.Contains(".csv"))
+                {
+                    PickSync.UpdatePicksCsv(fileName);
+                }
                 else
                 {
                     PickSync.UpdatePicks(fileName);

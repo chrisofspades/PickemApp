@@ -13,6 +13,8 @@ using System.Data;
 using System.Data.Odbc;
 using System.Data.OleDb;
 
+using Microsoft.VisualBasic.FileIO;
+
 namespace PickemApp.SyncUtils
 {
     public class NflSync
@@ -343,6 +345,134 @@ namespace PickemApp.SyncUtils
                     }
                 }
                 db.SaveChanges();
+            }
+        }
+
+        public static void UpdatePicksCsv(string csvfile)
+        {
+            using (PickemDBContext db = new PickemDBContext())
+            {
+                csvfile = HttpContext.Current.Server.MapPath(VirtualPathUtility.ToAbsolute("~/Content/datafiles/" + csvfile));
+                using (TextFieldParser parser = new TextFieldParser(csvfile))
+                {
+                    parser.TextFieldType = FieldType.Delimited;
+                    parser.SetDelimiters(",");
+
+                    // Read the first row. It contains week, year, and game data
+                    var firstRow = parser.ReadFields();
+
+                    // Setup year and week.
+                    int year = 0;
+                    int week = 0;
+
+                    var firstCol = firstRow[0].Split('-');
+                    if (firstCol.Length == 2)
+                    {
+                        int.TryParse(firstCol[0].Trim(), out year);
+                        int.TryParse(firstCol[1].Trim(), out week);
+                    }
+
+                    if (year == 0)
+                    {
+                        year = db.Seasons.Select(y => y.Year).Max();
+                    }
+                    if (week == 0)
+                    {
+                        week = db.Games.Where(g => g.Year == year && g.GameType == "REG").Select(g => g.Week).Max();
+                    }
+
+                    // Create a dictionary of games, where the key is the index
+                    Dictionary<int, Game> dictGames = new Dictionary<int, Game>();
+                    for (int i = 1; i < firstRow.Length; i++)
+                    {
+                        if (firstRow[i].Trim().Length == 0)
+                        {
+                            continue;
+                        }
+
+                        var teams = firstRow[i].Trim().Split('-');
+                        if (teams.Length != 2)
+                        {
+                            continue;
+                        }
+
+                        var homeTeam = teams[1];
+                        var visitorTeam = teams[0];
+
+                        //Find the game record
+                        Game game = (from g in db.Games
+                                     where g.Week == week && g.Year == year && g.GameType == "REG" && g.HomeTeam == homeTeam && g.VisitorTeam == visitorTeam
+                                     select g).FirstOrDefault();
+
+                        dictGames.Add(i, game);
+                    }
+
+                    // Get the picks
+                    List<Pick> newPicks = new List<Pick>();
+
+                    while (!parser.EndOfData)
+                    {
+                        var fields = parser.ReadFields();
+
+                        // Get player (first field)
+                        var playerName = fields[0];
+                        Player player = db.Players.Where(q => q.Name.ToLower() == playerName.ToLower()).FirstOrDefault();
+
+                        if (player == null)
+                        {
+                            continue;
+                        }
+
+                        for (int i = 1; i < fields.Length - 1; i++)
+                        {
+                            var teamPicked = fields[i];
+                            Game game = dictGames[i];
+
+                            if (game != null && !string.IsNullOrEmpty(teamPicked))
+                            {
+                                double totalPoints = 0;
+
+                                //Total points will be in the column next to the final game
+                                if (i == fields.Length - 2)
+                                {
+                                    totalPoints = Convert.ToDouble(fields[i + 1]);
+                                }
+
+                                Pick newPick = new Pick
+                                {
+                                    PlayerId = player.Id,
+                                    Player = player,
+                                    GameId = game.Id,
+                                    Game = game,
+                                    TeamPicked = teamPicked,
+                                    TotalPoints = totalPoints
+                                };
+
+                                newPick.Id = (from o in db.Picks
+                                              where o.PlayerId == player.Id && o.GameId == game.Id
+                                              select o.Id).FirstOrDefault();
+
+                                newPick.PickResult = (newPick.TeamPicked == game.WinningTeam) ? "W" : null;
+
+                                newPicks.Add(newPick);
+                            }
+                        }
+                    }
+
+                    // Save picks
+                    foreach (var item in newPicks)
+                    {
+                        if (item.Id != 0)
+                        {
+                            db.Entry(item).State = System.Data.Entity.EntityState.Modified;
+                        }
+                        else
+                        {
+                            db.Picks.Add(item);
+                        }
+                    }
+                    db.SaveChanges();
+                }
             }
         }
 
