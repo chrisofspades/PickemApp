@@ -19,7 +19,7 @@ namespace PickemApp.Controllers
             return View();
         }
 
-        public ActionResult Nfl(string x = "http://www.nfl.com/liveupdate/scorestrip/ss.xml")
+        public ActionResult Nfl(string x = "https://feeds.nfl.com/feeds-rs/scores.json")
         {
             if (string.IsNullOrEmpty(x))
             {

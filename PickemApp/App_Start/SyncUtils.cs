@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Xml;
 using System.Xml.Linq;
+using PickemApp.Extensions;
 using PickemApp.Models;
 using HtmlAgilityPack;
 using System.Text.RegularExpressions;
@@ -14,12 +16,104 @@ using System.Data.Odbc;
 using System.Data.OleDb;
 
 using Microsoft.VisualBasic.FileIO;
+using Newtonsoft.Json.Linq;
 
 namespace PickemApp.SyncUtils
 {
     public class NflSync
     {
-        public static void UpdateGames(string xmlLocation)
+        public static void UpdateGames(string feedSource, int version = 2)
+        {
+            switch (version)
+            {
+                case 2:
+                    UpdateGamesV2(feedSource);
+                    break;
+                case 1: 
+                default:
+                    UpdateGamesV1(feedSource);
+                    break;
+            }
+        }
+
+        public static void UpdateGamesV2(string feedSource)
+        {
+            // Expects JSON in the format of https://feeds.nfl.com/feeds-rs/scores.json
+            using (var webClient = new System.Net.WebClient())
+            {
+                var jsonString = webClient.DownloadString(feedSource);
+
+                var json = JObject.Parse(jsonString);
+
+                var season = Convert.ToInt32(json["season"]);
+                var week = Convert.ToInt32(json["week"]);
+                var seasonType = json["seasonType"].ToString();
+
+                var games = json["gameScores"];
+
+                using (PickemDBContext db = new PickemDBContext())
+                {
+                    foreach (var g in games)
+                    {
+                        var gameDate = DateTime.Parse(string.Format("{0} {1}", g["gameSchedule"]["gameDate"], g["gameSchedule"]["gameTimeEastern"]));
+                        var gameId = g["gameSchedule"]["gameId"].ToString();
+
+                        Game game = db.Games.Where(x => x.Eid == gameId).FirstOrDefault();
+                        if (game == null)
+                        {
+                            game = new Game();
+                        }
+                        game.Eid = g["gameSchedule"]["gameId"].ToString();
+                        game.Gsis = g["gameSchedule"]["gameKey"].ToString();
+                        game.Week = week;
+                        game.Year = season;
+                        game.Day = gameDate.ToString("ddd");
+                        game.Time = gameDate.ToString("h:mm");
+                        game.GameType = seasonType.ToString();
+                        game.HomeTeam = g["gameSchedule"]["homeTeamAbbr"].ToString();
+                        game.VisitorTeam = g["gameSchedule"]["visitorTeamAbbr"].ToString();
+                        game.Quarter = "";
+                        game.TimeRemaining = "";
+
+                        if (!g["score"].IsNullOrEmpty())
+                        {
+                            game.HomeTeamScore = Convert.ToInt32(g["score"]["homeTeamScore"]["pointTotal"]);
+                            game.VisitorTeamScore = Convert.ToInt32(g["score"]["visitorTeamScore"]["pointTotal"]);
+
+                            CultureInfo cultureInfo = CultureInfo.InvariantCulture;
+                            TextInfo textInfo = cultureInfo.TextInfo;
+                            game.Quarter = textInfo.ToTitleCase(g["score"]["phase"].ToString());
+
+                            game.TimeRemaining = g["score"]["time"].ToString();
+                        }
+
+                        if (game.HomeTeamScore == game.VisitorTeamScore)
+                            game.WinningTeam = null;
+                        else if (game.HomeTeamScore > game.VisitorTeamScore)
+                            game.WinningTeam = game.HomeTeam;
+                        else if (game.VisitorTeamScore > game.HomeTeamScore)
+                            game.WinningTeam = game.VisitorTeam;
+
+
+                        if (game.Id != 0)
+                        {
+                            db.Entry(game).State = System.Data.Entity.EntityState.Modified;
+                        }
+                        else
+                        {
+                            db.Games.Add(game);
+                        }
+                    }
+
+                    db.SaveChanges();
+
+                    //Update pick results
+                    UpdatePicks(week, season);
+                }
+            }
+        }
+
+        public static void UpdateGamesV1(string xmlLocation)
         {
             //The XML document is expected to be in the same format as http://www.nfl.com/liveupdate/scorestrip/ss.xml
             XDocument xml = XDocument.Load(xmlLocation);
