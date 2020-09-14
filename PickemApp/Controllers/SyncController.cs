@@ -19,7 +19,7 @@ namespace PickemApp.Controllers
             return View();
         }
 
-        public ActionResult Nfl(string x = "https://feeds.nfl.com/feeds-rs/scores.json")
+        public ActionResult Nfl(string x = "https://feeds.nfl.com/feeds-rs/scores.json", int v = 2)
         {
             if (string.IsNullOrEmpty(x))
             {
@@ -28,7 +28,7 @@ namespace PickemApp.Controllers
 
             ViewBag.Message = "Games and pick results updated.";
 
-            NflSync.UpdateGames(x);
+            NflSync.UpdateGames(x, v);
             return View("Index");
         }
 
