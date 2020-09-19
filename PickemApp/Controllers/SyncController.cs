@@ -19,7 +19,7 @@ namespace PickemApp.Controllers
             return View();
         }
 
-        public ActionResult Nfl(string x = "https://feeds.nfl.com/feeds-rs/scores.json", int v = 2)
+        public ActionResult Nfl(string x = "https://ramcasleague.droppages.com/NflScores2.xml", int v = 1)
         {
             if (string.IsNullOrEmpty(x))
             {
