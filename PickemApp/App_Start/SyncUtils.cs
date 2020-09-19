@@ -14,6 +14,7 @@ using System.Threading;
 using System.Data;
 using System.Data.Odbc;
 using System.Data.OleDb;
+using System.Net
 
 using Microsoft.VisualBasic.FileIO;
 using Newtonsoft.Json.Linq;
@@ -115,6 +116,9 @@ namespace PickemApp.SyncUtils
 
         public static void UpdateGamesV1(string xmlLocation)
         {
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            
             //The XML document is expected to be in the same format as http://www.nfl.com/liveupdate/scorestrip/ss.xml
             XDocument xml = XDocument.Load(xmlLocation);
             var games = xml.Descendants("g");
