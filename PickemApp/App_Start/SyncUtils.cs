@@ -14,7 +14,7 @@ using System.Threading;
 using System.Data;
 using System.Data.Odbc;
 using System.Data.OleDb;
-using System.Net
+using System.Net;
 
 using Microsoft.VisualBasic.FileIO;
 using Newtonsoft.Json.Linq;
